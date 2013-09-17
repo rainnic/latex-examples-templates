@@ -1,0 +1,154 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=1cm,right=1cm,top=0.5cm,bottom=0.5cm]{geometry}
+   \usepackage{tikz}
+   \usetikzlibrary{decorations.markings,mec}
+\begin{document}
+\usetikzlibrary{positioning}
+\begin{flushright}
+Nicola Rainiero -- http://rainnic.altervista.org/
+\end{flushright}
+
+%\begin{center}
+%\begin{tikzpicture}[node distance=1mm]
+%\coordinate (a) at (2,2) node[above=of a] {A};
+%\coordinate (b) at (6,2) node[above=of b] {B};
+%\coordinate (c) at (10,2) node[above=of c] {C};
+%\coordinate (load) at (6,1) node[right=of load] {$10$ kN};
+%\node[hinge,draw,grounded] (A) at (a){};
+%\node[support,draw,grounded] (C) at (c){};
+%\node[hinge b,draw] (B) at (b){};
+%\draw[|-|] (2,0) -- node[above] {$4\,m$} (6,0);
+%\draw[ -|] (6,0) -- node[above] {$4\,m$} (10,0);
+%\draw[->] (6,1.90) -- (6,0.90);
+% \usepackage{textcomp} \textdegree \textcelsius
+%\end{tikzpicture}
+%\end{center}
+
+
+\textbf{\huge{a)}} 
+\begin{center}
+\begin{tikzpicture}[node distance=1mm]
+\coordinate (a) at (2,2) node[left=of a] {A};
+\coordinate (b) at (6,2) node[below left=of b] {B};
+\coordinate (c) at (10,2) node[right=of c] {C};
+\coordinate (d) at (4,2) node[below=of d] {D};
+\coordinate (e) at (8,2) node[below=of e] {E};
+\coordinate (f) at (4,4) node[above=of f] {F};
+\coordinate (g) at (6,4) node[above=of g] {G};
+\coordinate (h) at (8,4) node[above=of h] {H};
+\coordinate (load) at (6,1) node[right=of load] {$10$ kN};
+\coordinate (joint) at (11,6) node[right=of joint] {JOINTS};
+\coordinate (member) at (11,4) node[right=of member] {MEMBERS};
+\coordinate (roller) at (11,1.75) node[right=of roller] {ROLLER};
+\coordinate (pin) at (0,1.75) node[below=of pin] {PIN JOINT};
+\node[hinge,draw,grounded] (A) at (a){};
+\node[support,draw,grounded] (C) at (c){};
+\node[hinge b,draw] (B) at (b){};
+\node[hinge b,draw] (D) at (d){};
+\node[hinge b,draw] (E) at (e){};
+\node[hinge b,draw] (F) at (f){};
+\node[hinge b,draw] (G) at (g){};
+\node[hinge b,draw] (H) at (h){};
+\draw[thick] (A) -- (F) -- (B) -- (H) -- (C) -- (E) -- (B) -- (D)
+-- (A) (F) -- (G) -- (H) (F) -- (D) (H) -- (E) (G) -- (B);
+\draw[->] (6,1.90) -- (6,0.90);
+\draw[->] (joint) -- (H);
+\draw[->] (member) -- (9,3);
+\draw[->] (roller) -- (10,1.75);
+\draw[->] (pin) -- (2,1.75);
+\draw[|-|] (2,0) -- node[above] {$2\,m$} (4,0);
+\draw[ -|] (4,0) -- node[above] {$2\,m$} (6,0);
+\draw[ -|] (6,0) -- node[above] {$2\,m$} (8,0);
+\draw[ -|] (8,0) -- node[above] {$2\,m$} (10,0);
+\draw[|-|] (1,2) -- node[left] {$2\,m$} (1,4);
+\draw (2.5,2) arc (0:45:0.5) node[right] {$45^{o}$};
+\draw (5.5,2) arc (180:135:0.5) node[left] {$45^{o}$};
+\draw (6.5,2) arc (0:45:0.5) node[right] {$45^{o}$};
+\draw (9.5,2) arc (180:135:0.5) node[left] {$45^{o}$};
+% \usepackage{textcomp} \textdegree \textcelsius
+\draw[|-|,sloped] (1.65,2.35) -- node[sloped, above] {$2.83\,m$} (3.65,4.35);
+\draw[<->] (0,6) node[above] {y} -- (0,5) -- (1,5) node[below] {x};
+\draw [->] (0.75,5.25) node[sloped, left=0.15] {$+$} arc (0:90:0.5);
+\end{tikzpicture}
+\end{center}
+\textbf{\huge{b)}}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline 
+NO of JOINTS & COST/UNIT & COST \\
+(only joints, no pin joint and roller) & \$/u & \$(USD) \\
+\hline 
+$8$  & $50$ & $400$ \\ 
+\hline 
+NO of MEMBERS & COST/($75+L^4$) & COST \\
+- & $\$/L^4$ & \$(USD) \\
+\hline 
+9 (L=$2\,m$) & ($75+2^4$) & 819 \\
+4 (L=$2.82\,m$) & ($75+2.82^4$) & 553 \\
+\hline  
+\hline 
+\multicolumn{2}{|r|}{\textbf{TOTAL COST}} & $\mathbf{1\,772\,\,\$\,(USD)}$ \\
+\hline 
+\end{tabular} 
+\end{center}
+\textbf{\huge{c)}} The truss is \emph{internally stable}, because contains $13$ members ($m$) and $8$ joints ($j$), so the equation $m \geq 2 \cdot j - 3$ is satisfied and it has sufficient members to form a rigid body. Thus it is possible to find the reaction forces:
+\begin{align*}
+\sum{F_x}=0 & & F_{A_x} = 0 & & F_{A_x} &= 0 \\
+\sum{F_y}=0 & & F_{A_y} -10 + F_{C_y}=0 & & F_{A_y} &= 5 \, kN \\
+\sum{M_A}=0 & & -10 \cdot 4 + 8 \cdot F_{C_y}= 0 & & F_{C_y} &= 5 \, kN
+\end{align*}
+Also the truss is \emph{statically determinate} because the equation $m + r = 2 \cdot j$ ($r$ is equal to the $3$ reactions) is satisfied. The truss has $3$ zero force members: $FD$, $GB$ and $HE$.
+\newline
+\newline
+\emph{Particicle equilibrium}: since the geometry of the truss and the applied loading are symmetrical about the center line of the truss ($GB$ member), its member forces will also be symmetrical with respect to the line of symmetry. It is, therefore, sufficient to determine member forces in only one-half of the truss.
+\newline
+\newline
+(joint A) In order to satisfy $\sum F_y = 0$ the $F_{AF_y}= 5\,kN$ (must push downward into the joint with a magnitude of $5\,kN$ to balance the upward reaction of $5\,kN$). $F_{AF_y}= F_{AF} \cdot sin(45^{o})$ so $F_{AF} = 7.07 \, kN$ and the force in member $AF$ is compressive (C). $F_{AF_x}= F_{AF} \cdot cos(45^{o})= 5 \, kN$.
+\newline
+In order to satisfy $\sum F_x = 0$, the $F_{AD_x}= 5\,kN$ (must pull to the right with a magnitude of $5\,kN$ to balance the horizontal component of $F_{AF}$ acting to the left). Therefore, member $AD$ is in tension with a force of $5\,kN$ (T). 
+\newline
+\newline
+(joints D, F, B) after similar considerations due to the particicle equilibrium, the members that will be the first to fail by tensile yielding are $FB$ and $BH$ and by compressive buckling are $FG$ and $GH$ as shown in the figure:
+
+\begin{center}
+\begin{tikzpicture}[node distance=1mm]
+\coordinate (a) at (2,2) node[below left=of a] {A};
+\coordinate (b) at (6,2) node[below left=of b] {B};
+\coordinate (c) at (10,2) node[right=of c] {C};
+\coordinate (d) at (4,2) node[below=of d] {D};
+\coordinate (e) at (8,2) node[below=of e] {E};
+\coordinate (f) at (4,4) node[above=of f] {F};
+\coordinate (g) at (6,4) node[above=of g] {G};
+\coordinate (h) at (8,4) node[above=of h] {H};
+\coordinate (load) at (6,1) node[right=of load] {$10$ kN};
+%\node[hinge,draw,grounded] (A) at (a){};
+%\node[support,draw,grounded] (C) at (c){};
+\node[hinge b,draw] (A) at (a){};
+\node[hinge b,draw] (C) at (c){};
+\node[hinge b,draw] (B) at (b){};
+\node[hinge b,draw] (D) at (d){};
+\node[hinge b,draw] (E) at (e){};
+\node[hinge b,draw] (F) at (f){};
+\node[hinge b,draw] (G) at (g){};
+\node[hinge b,draw] (H) at (h){};
+\draw[thick] (A) -- node[sloped, below] {\tiny{$7.1kN\,(C)$}} (F) -- (B) -- (H) -- node[sloped, below] {\tiny{$7.1kN\,(C)$}} (C) -- node[sloped, below] {\tiny{$5kN\,(T)$}} (E) -- node[sloped, below] {\tiny{$5kN\,(T)$}} (B) -- node[sloped, below] {\tiny{$5kN\,(T)$}}(D)
+-- node[sloped, below] {\tiny{$5kN\,(T)$}} (A) (F) -- (G) -- (H) (F) -- (D) (H) -- (E) (G) -- (B);
+\draw[very thick,blue] (F) -- node[sloped, below] {\scriptsize{$10kN\,(C)$}} (G) -- node[sloped, below] {\scriptsize{$10kN\,(C)$}} (H);
+\draw[very thick,red] (F) -- node[sloped, below] {\scriptsize{$7.1kN\,(T)$}} (B) -- node[sloped, below] {\scriptsize{$7.1kN\,(T)$}} (H);
+\draw[<-] (2,1.90) -- (2,0.90) node[right] {$F_{Ay}=5kN$};
+\draw[->] (1,2) node[left] {$F_{Ax}=0$}  -- (1.90,2);
+\draw[->] (6,1.90) -- (6,0.90);
+\draw[<-] (10,1.90) -- (10,0.90) node[right] {$F_{Cy}=5kN$};
+\draw[very thick,blue] (12,2.5) -- (13,2.5) node[right] {max compressive buckling};
+\draw[very thick,red] (12,3) -- (13,3) node[right] {max tensile yielding};
+\draw[<->] (0,6) node[above] {y} -- (0,5) -- (1,5) node[below] {x};
+\draw [->] (0.75,5.25) node[sloped, left=0.15] {$+$} arc (0:90:0.5);
+\end{tikzpicture}
+\end{center}
+\end{document}

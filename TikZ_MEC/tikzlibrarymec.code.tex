@@ -1,0 +1,1166 @@
+%%
+%% This is file `tikzlibrarymec.code.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% tikz-mec.dtx  (with options: `tikzmec')
+%% 
+%% Copyright (C) 2012 by Francesco Clemente
+%% <francesco dot clemente00 at gmail dot com>
+%% 
+%% This file may be distributed and/or modified under the conditions
+%% of the LaTeX Project Public License, either version 1.3 of this
+%% license or (at your option) any later version.
+%% The latest version of this license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work is "maintained" (as per LPPL maintenance status) by
+%% Francesco Clemente.
+%% 
+%% This work consists of the files  tikz-mec.dtx
+%%                                  tikz-mec.ins
+%%                                  README
+%% and the derived files            tikzlibrarymec.code.tex
+%%                                  tikz-mec.pdf
+%% 
+\tikzset{%
+  Ground/.style={%
+    append after command={;%
+      \node[draw,ground,anchor=north,rotate=#1] (\tikzlastnode ground) at
+      (\tikzlastnode.bottom){}}},%
+  Ground/.default=0,%
+  grounded/.style={Ground=#1,rotate=#1},%
+  grounded/.default=0}%
+\pgfdeclaredecoration{mec@draw@straight@load@forces}{initial}{%
+  \state{initial}[width=\pgfdecoratedpathlength/%
+     round(\pgfdecoratedpathlength/\pgfkeysvalueof{/tikz/forces distance})]{%
+    \pgf@xb=\pgfkeysvalueof{/tikz/load distance}
+    \pgf@xa=\pgfkeysvalueof{/tikz/forces length}
+    \advance\pgf@xa by\pgf@xb
+    \pgfpathmoveto{\pgfpoint{0pt}{\pgf@xa}}
+    \pgfpathlineto{\pgfpoint{0pt}{\pgf@xb}}
+    \pgfusepath{stroke}
+  }
+  \state{final}{%
+    \pgf@xb=\pgfkeysvalueof{/tikz/load distance}
+    \pgf@xa=\pgfkeysvalueof{/tikz/forces length}
+    \advance\pgf@xa by\pgf@xb
+    \pgfpathmoveto{%
+      \pgfpointadd{\pgfpoint{0pt}{\pgf@xa}}{\pgfpointdecoratedpathlast}}
+    \pgfpathlineto{%
+      \pgfpointadd{\pgfpoint{0pt}{\pgf@xb}}{\pgfpointdecoratedpathlast}}
+    \pgfusepath{stroke}
+  }
+}
+\pgfdeclaredecoration{mec@draw@straight@load@box}{initial}{%
+  \state{initial}[width=1pt,next state=final]{
+    \pgf@xa=\pgfkeysvalueof{/tikz/load distance}
+    \pgf@xb=\pgfkeysvalueof{/tikz/forces length}
+    \advance\pgf@xb by\pgf@xa
+    \pgfpathmoveto{\pgfpoint{0pt}{\pgf@xa}}
+    \pgfpathlineto{%
+      \pgfpointadd{\pgfpoint{0pt}{\pgf@xa}}{\pgfpointdecoratedpathlast}}%
+    \pgfpathmoveto{\pgfpoint{0pt}{\pgf@xb}}
+    \pgfpathlineto{%
+      \pgfpointadd{\pgfpoint{0pt}{\pgf@xb}}{\pgfpointdecoratedpathlast}}%
+    \pgfusepath{stroke}
+  }
+  \state{final}{%
+    \pgfpathmoveto{\pgfpointdecoratedpathlast}
+  }
+}
+\pgfdeclaredecoration{mec@draw@curved@load@forces}{initial}{%
+  \state{initial}[width=0.999*\pgfdecoratedpathlength/%
+     round(\pgfdecoratedpathlength/\pgfkeysvalueof{/tikz/forces distance})]{%
+    \pgf@xb=\pgfkeysvalueof{/tikz/load distance}
+    \pgf@xa=\pgfkeysvalueof{/tikz/forces length}
+    \advance\pgf@xa by\pgf@xb
+    \pgfpathmoveto{\pgfpoint{0pt}{\pgf@xa}}
+    \pgfpathlineto{\pgfpoint{0pt}{\pgf@xb}}
+    \pgfusepath{stroke}
+  }
+  \state{final}{%
+    \pgf@xb=\pgfkeysvalueof{/tikz/load distance}
+    \pgf@xa=\pgfkeysvalueof{/tikz/forces length}
+    \advance\pgf@xa by\pgf@xb
+    \pgfpathmoveto{%
+      \pgfpointadd{\pgfpoint{0pt}{\pgf@xa}}{\pgfpointdecoratedpathlast}}
+    \pgfpathlineto{%
+      \pgfpointadd{\pgfpoint{0pt}{\pgf@xb}}{\pgfpointdecoratedpathlast}}
+    \pgfusepath{stroke}
+  }
+}
+\pgfdeclaredecoration{mec@draw@curved@load@box}{initial}{%
+  \state{initial}[width=1pt,next state=final]{%
+    \pgf@xa=\pgfkeysvalueof{/tikz/load distance}
+    \pgf@ya=\pgf@xa
+    \pgf@xb=\pgfkeysvalueof{/tikz/x radius}
+    \pgf@yb=\pgfkeysvalueof{/tikz/y radius}
+    \pgf@xc=\pgfkeysvalueof{/tikz/forces length}
+    \pgfmathtruncatemacro\mec@adjust@factor{%
+      \pgfkeysvalueof{/tikz/start angle} <%
+      \pgfkeysvalueof{/tikz/end angle} ? -1 : 1}
+    \multiply\pgf@xa by\mec@adjust@factor
+    \multiply\pgf@xc by\mec@adjust@factor
+    \advance\pgf@xb by\pgf@xa
+    \advance\pgf@yb by\pgf@xa
+    \pgfpathmoveto{\pgfpoint{0pt}{\pgf@ya}}
+    \pgfmathtruncatemacro\mec@adjust@angle{%
+      (90*\mec@adjust@factor)-\pgfkeysvalueof{/tikz/start angle}}
+    \pgfpatharc{\pgfkeysvalueof{/tikz/start angle}+\mec@adjust@angle}%
+               {\pgfkeysvalueof{/tikz/end angle}+\mec@adjust@angle}%
+               {\pgf@yb and \pgf@xb}% switched
+    \advance\pgf@ya by\mec@adjust@factor\pgf@xc
+    \advance\pgf@xb by\pgf@xc
+    \advance\pgf@yb by\pgf@xc
+    \pgfpathmoveto{\pgfpoint{0pt}{\pgf@ya}}
+    \pgfpatharc{\pgfkeysvalueof{/tikz/start angle}+\mec@adjust@angle}%
+               {\pgfkeysvalueof{/tikz/end angle}+\mec@adjust@angle}%
+               {\pgf@yb and \pgf@xb}% switched
+    \pgfusepath{stroke}
+  }
+  \state{final}{%
+    \pgfpathmoveto{\pgfpointdecoratedpathlast}
+  }
+}
+\tikzset{load distance/.initial=10pt,
+         forces distance/.initial=10pt,
+         forces length/.initial=20pt,
+         total distance/.initial=30pt,
+         draw curved load/.style 2 args={%
+           total distance={\pgfkeysvalueof{/tikz/forces length}+%
+             \pgfkeysvalueof{/tikz/load distance}},%
+           postaction={->,decorate,decoration={mec@draw@curved@load@forces}},%
+           postaction={decorate,decoration=mec@draw@curved@load@box},%
+           postaction={decorate,decoration={markings,%
+             raise=\pgfkeysvalueof{/tikz/total distance},%
+             mark=at position #2 with \node #1;}}},
+         draw curved load/.default={[right]{$p$}}{0.999},
+         draw straight load/.style 2 args={%
+           total distance={\pgfkeysvalueof{/tikz/forces length}+%
+             \pgfkeysvalueof{/tikz/load distance}},%
+           postaction={->,decorate,decoration={mec@draw@straight@load@forces}},%
+           postaction={decorate,decoration=mec@draw@straight@load@box},%
+           postaction={decorate,decoration={markings,%
+             raise=\pgfkeysvalueof{/tikz/total distance},%
+             mark=at position #2 with \node #1;}}},
+         draw straight load/.default={[right]{$p$}}{0.999}
+}
+\tikzset{stretch factor/.initial=1}
+\pgfdeclareshape{support}{%
+  \inheritsavedanchors[from=circle]
+  \saveddimen{\halfradius}{%
+    \pgf@x=.5\pgf@x}
+  \anchorborder{
+    \pgf@xa=\pgf@x%
+    \pgf@ya=\pgf@y%
+    \edef\pgf@marshal{%
+      \noexpand\pgfpointborderellipse
+      {\noexpand\pgfqpoint{\the\pgf@xa}{\the\pgf@ya}}
+      {\noexpand\pgfqpoint{\halfradius}{\halfradius}}% <- edited here
+    }%
+    \pgf@marshal%
+    \pgf@xa=\pgf@x%
+    \pgf@ya=\pgf@y%
+    \centerpoint%
+    \advance\pgf@x by\pgf@xa%
+    \advance\pgf@y by\pgf@ya%
+  }
+  \inheritanchor[from=circle]{center}
+  \inheritanchor[from=circle]{mid}
+  \inheritanchor[from=circle]{base}
+  \anchor{north}{\centerpoint\advance\pgf@y by\halfradius}
+  \anchor{south}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \advance\pgf@y by-3\pgf@xa}
+  \anchor{west}{%
+    \centerpoint
+    \pgf@xa=\radius
+    % y = -1.5*r*tan(alpha)
+    \advance\pgf@x by-1\pgf@xa
+    \advance\pgf@y by-1.5\pgf@xa
+  }
+  \anchor{east}{%
+    \centerpoint
+    \pgf@xa=\radius
+    % y = 1.5*r*tan(alpha)
+    \advance\pgf@x by1\pgf@xa
+    \advance\pgf@y by-1.5\pgf@xa
+  }
+  \anchor{mid west}{%
+    \centerpoint
+    \advance\pgf@x by-\halfradius\pgfmathsetlength\pgf@y{.5ex}
+  }
+  \anchor{mid east}{%
+    \centerpoint
+    \advance\pgf@x by\halfradius\pgfmathsetlength\pgf@y{.5ex}
+  }
+  \anchor{base west}{\centerpoint\advance\pgf@x by-\halfradius\pgf@y=0pt}
+  \anchor{base east}{\centerpoint\advance\pgf@x by\halfradius\pgf@y=0pt}
+  \anchor{north west}{%
+    \centerpoint
+    \pgf@xa=\halfradius
+    \advance\pgf@x by-0.707107\pgf@xa
+    \advance\pgf@y by0.707107\pgf@xa
+  }
+  \anchor{south west}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \advance\pgf@x by-2\pgf@xa
+    \advance\pgf@y by-3\pgf@xa
+  }
+  \anchor{north east}{%
+    \centerpoint
+    \pgf@xa=\halfradius
+    \advance\pgf@x by0.707107\pgf@xa
+    \advance\pgf@y by0.707107\pgf@xa
+  }
+  \anchor{south east}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \advance\pgf@x by2\pgf@xa
+    \advance\pgf@y by-3\pgf@xa
+  }
+  \anchor{triangle center}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \advance\pgf@y by-1.5\pgf@xa
+    }
+  \anchor{bottom}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \pgf@xb=\halfradius
+    \advance\pgf@y by-3\pgf@xa
+    \advance\pgf@y by-2\pgf@xb
+    \advance\pgf@y by-.5\pgflinewidth
+  }
+  \anchor{bottom west}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \pgf@xb=\halfradius
+    \advance\pgf@y by-3\pgf@xa
+    \advance\pgf@y by-2\pgf@xb
+    \advance\pgf@y by-.5\pgflinewidth
+    \advance\pgf@x by-\pgf@xa
+  }
+  \anchor{bottom east}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \pgf@xb=\halfradius
+    \advance\pgf@y by-3\pgf@xa
+    \advance\pgf@y by-2\pgf@xb
+    \advance\pgf@y by-.5\pgflinewidth
+    \advance\pgf@x by\pgf@xa
+  }
+  \backgroundpath{%
+      \pgf@x=\radius
+      \pgfutil@tempdima=\pgf@x%
+      \pgfutil@tempdimb=\halfradius%
+      \pgf@xb=-2\pgf@x%
+      \pgf@yb=-3\pgf@x%
+      \pgf@xc= 2\pgf@x%
+      \pgf@yc=-3\pgf@x%
+      % (half inner angle is 33.69)
+      \centerpoint
+      \advance\pgf@xb by\pgf@x
+      \advance\pgf@yb by\pgf@y
+      \advance\pgf@xc by\pgf@x
+      \advance\pgf@yc by\pgf@y
+      \pgf@xa=\pgf@x
+      \pgf@ya=\pgf@y
+      %\message{^^JTop : \the\pgf@xa,\the\pgf@ya}
+      %\message{^^JWest: \the\pgf@xb,\the\pgf@yb}
+      %\message{^^JEast: \the\pgf@xc,\the\pgf@yc}
+      %\message{^^JCent: \the\pgf@x,\the\pgf@y}
+      %\message{^^JR: \the\pgfutil@tempdima}
+      \advance\pgf@xa by-0.5547\pgfutil@tempdimb%
+      \advance\pgf@ya by-0.832\pgfutil@tempdimb%
+      \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}%
+      \advance\pgf@xa by1.1094\pgfutil@tempdimb%
+      \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+      \advance\pgf@xa by-1.1094\pgfutil@tempdimb%
+      \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+      \pgfpathclose%
+      \advance\pgf@xa by0.5547\pgfutil@tempdimb%
+      \advance\pgf@ya by0.832\pgfutil@tempdimb%
+      \advance\pgf@xb by 1\pgfutil@tempdima
+      \advance\pgf@yb by -\pgfutil@tempdimb
+      \advance\pgf@xc by-1\pgfutil@tempdima
+      \advance\pgf@yc by -\pgfutil@tempdimb
+      \edef\pgf@marshal{%
+          \noexpand\pgfpathcircle{%
+              \noexpand\pgfqpoint{\the\pgf@xa}{\the\pgf@ya}}
+          {\the\pgfutil@tempdimb}%
+          \noexpand\pgfpathcircle{%
+              \noexpand\pgfqpoint{\the\pgf@xb}{\the\pgf@yb}}
+          {\the\pgfutil@tempdimb}%
+          \noexpand\pgfpathcircle{%
+              \noexpand\pgfqpoint{\the\pgf@xc}{\the\pgf@yc}}
+          {\the\pgfutil@tempdimb}%
+      }\pgf@marshal
+  }%
+}
+\pgfdeclareshape{hinge}{%
+  \inheritsavedanchors[from=circle]
+  \saveddimen{\halfradius}{%
+    \pgf@x=.5\pgf@x}
+  \anchorborder{
+    \pgf@xa=\pgf@x%
+    \pgf@ya=\pgf@y%
+    \edef\pgf@marshal{%
+      \noexpand\pgfpointborderellipse
+      {\noexpand\pgfqpoint{\the\pgf@xa}{\the\pgf@ya}}
+      {\noexpand\pgfqpoint{\halfradius}{\halfradius}}% <- edited here
+    }%
+    \pgf@marshal%
+    \pgf@xa=\pgf@x%
+    \pgf@ya=\pgf@y%
+    \centerpoint%
+    \advance\pgf@x by\pgf@xa%
+    \advance\pgf@y by\pgf@ya%
+  }
+  \inheritanchor[from=circle]{center}
+  \inheritanchor[from=circle]{mid}
+  \inheritanchor[from=circle]{base}
+  \anchor{north}{\centerpoint\advance\pgf@y by\halfradius}
+  \anchor{south}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \advance\pgf@y by-4\pgf@xa
+  }
+  \anchor{west}{%
+    \centerpoint
+    \pgf@xa=\radius
+    % y = -2*r*tan(alpha)
+    \advance\pgf@x by-1\pgf@xa
+    \advance\pgf@y by-2\pgf@xa
+  }
+  \anchor{east}{%
+    \centerpoint
+    \pgf@xa=\radius
+    % y = 2*r*tan(alpha)
+    \advance\pgf@x by1\pgf@xa
+    \advance\pgf@y by-2\pgf@xa
+  }
+  \anchor{mid west}{%
+    \centerpoint
+    \advance\pgf@x by-\halfradius\pgfmathsetlength\pgf@y{.5ex}}
+  \anchor{mid east}{%
+    \centerpoint
+    \advance\pgf@x by\halfradius\pgfmathsetlength\pgf@y{.5ex}}
+  \anchor{base west}{\centerpoint\advance\pgf@x by-\halfradius\pgf@y=0pt}
+  \anchor{base east}{\centerpoint\advance\pgf@x by\halfradius\pgf@y=0pt}
+  \anchor{north west}{%
+    \centerpoint
+    \pgf@xa=\halfradius
+    \advance\pgf@x by-0.707107\pgf@xa
+    \advance\pgf@y by0.707107\pgf@xa
+  }
+  \anchor{south west}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \advance\pgf@x by-2\pgf@xa
+    \advance\pgf@y by-4\pgf@xa
+  }
+  \anchor{north east}{%
+    \centerpoint
+    \pgf@xa=\halfradius
+    \advance\pgf@x by0.707107\pgf@xa
+    \advance\pgf@y by0.707107\pgf@xa
+  }
+  \anchor{south east}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \advance\pgf@x by2\pgf@xa
+    \advance\pgf@y by-4\pgf@xa
+  }
+  \anchor{bottom}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \advance\pgf@y by-4\pgf@xa
+    \advance\pgf@y by-.5\pgflinewidth
+  }
+  \anchor{triangle center}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \advance\pgf@y by-2\pgf@xa
+  }
+  \backgroundpath{%
+      \pgf@x=\radius
+      \pgfutil@tempdima=\pgf@x%
+      \pgfutil@tempdimb=\halfradius%
+      % west triangle corner "b"
+      \pgf@xb=-2\pgf@x%
+      \pgf@yb=-4\pgf@x%
+      % east triangle corner "c"
+      \pgf@xc= 2\pgf@x%
+      \pgf@yc=-4\pgf@x%
+      % If text is present shift shape to center
+      \centerpoint
+      \advance\pgf@xb by\pgf@x
+      \advance\pgf@yb by\pgf@y
+      \advance\pgf@xc by\pgf@x
+      \advance\pgf@yc by\pgf@y
+      % Save centerpoint in "a" (triangle top corner)
+      \pgf@xa=\pgf@x
+      \pgf@ya=\pgf@y
+      \advance\pgf@xa by-0.4472\pgfutil@tempdimb%
+      \advance\pgf@ya by-0.8944\pgfutil@tempdimb%
+      \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}%
+      % changing "a" to upper right edge...
+      \advance\pgf@xa by0.8944\pgfutil@tempdimb%
+      \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+      % ...and back to upper left to close the path
+      \advance\pgf@xa by-0.8944\pgfutil@tempdimb%
+      \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+      \pgfpathclose%
+      \advance\pgf@xa by0.4472\pgfutil@tempdimb%
+      \advance\pgf@ya by0.8944\pgfutil@tempdimb%
+      \edef\pgf@marshal{%
+          \noexpand\pgfpathcircle{%
+              \noexpand\pgfqpoint{\the\pgf@xa}{\the\pgf@ya}}
+              {\the\pgfutil@tempdimb}%
+      }\pgf@marshal
+  }%
+}
+\pgfdeclareshape{hinge b}{%
+  \inheritsavedanchors[from=circle]
+  \saveddimen{\halfradius}{%
+    \pgf@x=.5\pgf@x}
+  \anchorborder{
+    \pgf@xa=\pgf@x%
+    \pgf@ya=\pgf@y%
+    \edef\pgf@marshal{%
+      \noexpand\pgfpointborderellipse
+      {\noexpand\pgfqpoint{\the\pgf@xa}{\the\pgf@ya}}
+      {\noexpand\pgfqpoint{\halfradius}{\halfradius}}% <- edited here
+    }%
+    \pgf@marshal%
+    \pgf@xa=\pgf@x%
+    \pgf@ya=\pgf@y%
+    \centerpoint%
+    \advance\pgf@x by\pgf@xa%
+    \advance\pgf@y by\pgf@ya%
+  }
+  \inheritanchor[from=circle]{center}
+  \inheritanchor[from=circle]{mid}
+  \inheritanchor[from=circle]{base}
+  \anchor{north}{\centerpoint\advance\pgf@y by\halfradius}
+  \anchor{south}{\centerpoint\advance\pgf@y by-\halfradius}
+  \anchor{west}{\centerpoint\advance\pgf@x by-\halfradius}
+  \anchor{east}{\centerpoint\advance\pgf@x by\halfradius}
+  \anchor{mid west}{%
+    \centerpoint
+    \advance\pgf@x by-\halfradius\pgfmathsetlength\pgf@y{.5ex}
+  }
+  \anchor{mid east}{%
+    \centerpoint
+    \advance\pgf@x by\halfradius\pgfmathsetlength\pgf@y{.5ex}
+  }
+  \anchor{base west}{%
+    \centerpoint
+    \advance\pgf@x by-\halfradius\pgf@y=0pt
+  }
+  \anchor{base east}{%
+    \centerpoint
+    \advance\pgf@x by\halfradius\pgf@y=0pt
+  }
+  \anchor{north west}{%
+    \centerpoint
+    \pgf@xa=\halfradius
+    \advance\pgf@x by-0.707107\pgf@xa
+    \advance\pgf@y by0.707107\pgf@xa
+  }
+  \anchor{south west}{%
+    \centerpoint
+    \pgf@xa=\halfradius
+    \advance\pgf@x by-0.707107\pgf@xa
+    \advance\pgf@y by-0.707107\pgf@xa
+  }
+  \anchor{north east}{%
+    \centerpoint
+    \pgf@xa=\halfradius
+    \advance\pgf@x by0.707107\pgf@xa
+    \advance\pgf@y by0.707107\pgf@xa
+  }
+  \anchor{south east}{%
+    \centerpoint
+    \pgf@xa=\halfradius
+    \advance\pgf@x by0.707107\pgf@xa
+    \advance\pgf@y by-0.707107\pgf@xa
+  }
+  \anchor{bottom}{%
+    \centerpoint
+    \advance\pgf@y by-\halfradius
+    \advance\pgf@y by-0.5\pgflinewidth
+  }
+  \backgroundpath{%
+    \pgfutil@tempdima=\halfradius%
+    \pgfpathcircle{\centerpoint}{\pgfutil@tempdima}%
+  }%
+}
+\pgfdeclareshape{pendulum}{%
+  \inheritsavedanchors[from=circle]
+  \saveddimen{\halfradius}{%
+    \pgf@x=.5\pgf@x}
+  \anchorborder{
+    \pgf@xa=\pgf@x%
+    \pgf@ya=\pgf@y%
+    \edef\pgf@marshal{%
+      \noexpand\pgfpointborderellipse
+      {\noexpand\pgfqpoint{\the\pgf@xa}{\the\pgf@ya}}
+      {\noexpand\pgfqpoint{\halfradius}{\halfradius}}% <- edited here
+    }%
+    \pgf@marshal%
+    \pgf@xa=\pgf@x%
+    \pgf@ya=\pgf@y%
+    \centerpoint%
+    \advance\pgf@x by\pgf@xa%
+    \advance\pgf@y by\pgf@ya%
+  }
+  \inheritanchor[from=circle]{center}
+  \inheritanchor[from=circle]{mid}
+  \inheritanchor[from=circle]{base}
+  \anchor{north}{\centerpoint\advance\pgf@y by\halfradius}
+  \anchor{south}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \advance\pgf@y by-4\pgf@xa
+  }
+  \anchor{west}{\centerpoint\advance\pgf@x by-\halfradius}
+  \anchor{east}{\centerpoint\advance\pgf@x by\halfradius}
+  \anchor{mid west}{%
+    \centerpoint
+    \advance\pgf@x by-\halfradius\pgfmathsetlength\pgf@y{.5ex}
+  }
+  \anchor{mid east}{%
+    \centerpoint
+    \advance\pgf@x by\halfradius\pgfmathsetlength\pgf@y{.5ex}
+  }
+  \anchor{base west}{\centerpoint\advance\pgf@x by-\halfradius\pgf@y=0pt}
+  \anchor{base east}{\centerpoint\advance\pgf@x by\halfradius\pgf@y=0pt}
+  \anchor{north west}{%
+    \centerpoint
+    \pgf@xa=\halfradius
+    \advance\pgf@x by-0.707107\pgf@xa
+    \advance\pgf@y by0.707107\pgf@xa
+  }
+  \anchor{south west}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \pgf@xb=\halfradius
+    \advance\pgf@x by-0.707107\pgf@xb
+    \advance\pgf@y by-3\pgf@xa
+    \advance\pgf@y by-1.707107\pgf@xb
+  }
+  \anchor{north east}{%
+    \centerpoint
+    \pgf@xa=\halfradius
+    \advance\pgf@x by0.707107\pgf@xa
+    \advance\pgf@y by0.707107\pgf@xa
+  }
+  \anchor{south east}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \pgf@xb=\halfradius
+    \advance\pgf@x by0.707107\pgf@xb
+    \advance\pgf@y by-3\pgf@xa
+    \advance\pgf@y by-1.707107\pgf@xb
+  }
+  \anchor{bottom}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \advance\pgf@y by-4\pgf@xa
+    \advance\pgf@y by-.5\pgflinewidth
+  }
+  \anchor{middle}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \pgf@xb=\halfradius
+    \advance\pgf@y by-1\pgf@xa
+    \advance\pgf@y by-1.5\pgf@xb
+  }
+  \backgroundpath{%
+      \pgf@x=\radius
+      \pgfutil@tempdima=\pgf@x%
+      \pgfutil@tempdimb=\halfradius%
+      \pgf@xb=0\pgfutil@tempdima%
+      \pgf@yb=-3\pgfutil@tempdima%
+      \advance\pgf@yb by-\pgfutil@tempdimb
+      % If text is present shift shape to center
+      \centerpoint
+      \advance\pgf@xb by\pgf@x
+      \advance\pgf@yb by\pgf@y
+      % Save centerpoint in "a" (top circle center)
+      \pgf@xa=\pgf@x
+      \pgf@ya=\pgf@y
+      \advance\pgf@ya by-\pgfutil@tempdimb%
+      \advance\pgf@yb by\pgfutil@tempdimb%
+      \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}%
+      \pgfpathclose
+      \advance\pgf@ya by\pgfutil@tempdimb%
+      \advance\pgf@yb by-\pgfutil@tempdimb%
+      \edef\pgf@marshal{%
+          \noexpand\pgfpathcircle{%
+              \noexpand\pgfqpoint{\the\pgf@xa}{\the\pgf@ya}}
+              {\the\pgfutil@tempdimb}%
+      \noexpand\pgfpathcircle{%
+              \noexpand\pgfqpoint{\the\pgf@xb}{\the\pgf@yb}}
+              {\the\pgfutil@tempdimb}%
+      }\pgf@marshal
+  }%
+}
+\pgfdeclareshape{double pendulum}{%
+  \inheritsavedanchors[from=circle]
+  \saveddimen{\halfradius}{%
+    \pgf@x=.5\pgf@x}
+  \inheritanchor[from=circle]{center}
+  \anchor{mid}{% y = centerpoint - 1\radius - 1.5\halfradius
+    \centerpoint
+    \pgf@xa=\radius
+    \pgf@xb=\halfradius
+    \advance\pgf@y by-1\pgf@xa
+    \advance\pgf@y by-1.5\pgf@xb
+  }
+  \anchor{mid west}{%
+    % y = centerpoint - 1\radius - 1.5\halfradius
+    % x = centerpoint - radius
+    \centerpoint
+    \pgf@xa=\radius
+    \pgf@xb=\halfradius
+    \advance\pgf@x by-1\pgf@xa
+    \advance\pgf@y by-1\pgf@xa
+    \advance\pgf@y by-1.5\pgf@xb
+  }
+  \anchor{mid east}{%
+    % y = centerpoint - 1\radius - 1.5\halfradius
+    % x = centerpoint + radius
+    \centerpoint
+    \pgf@xa=\radius
+    \pgf@xb=\halfradius
+    \advance\pgf@x by\pgf@xa
+    \advance\pgf@y by-1\pgf@xa
+    \advance\pgf@y by-1.5\pgf@xb
+  }
+  \anchor{south}{%
+   \centerpoint
+    \pgf@xa=\radius
+    \pgf@xb=\halfradius
+    \advance\pgf@y by-3\pgf@xa
+    \advance\pgf@y by-\pgf@xb
+  }
+  \anchor{upper left center}{%
+    \centerpoint
+    \advance\pgf@x by-\radius
+  }
+  \anchor{upper right center}{%
+    \centerpoint
+    \advance\pgf@x by\radius
+  }
+  \anchor{lower left center}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \pgf@xb=\halfradius
+    \advance\pgf@x by-\pgf@xa
+    \advance\pgf@y by-3\pgf@xa
+    \advance\pgf@y by-\pgf@xb
+  }
+  \anchor{lower right center}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \pgf@xb=\halfradius
+    \advance\pgf@x by\pgf@xa
+    \advance\pgf@y by-3\pgf@xa
+    \advance\pgf@y by-\pgf@xb
+  }
+  \anchor{bottom}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \pgf@xb=\halfradius
+    \advance\pgf@y by-3\pgf@xa
+    \advance\pgf@y by-2\pgf@xb
+    \advance\pgf@y by-.5\pgflinewidth
+  }
+  \anchor{bottom west}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \pgf@xb=\halfradius
+    \advance\pgf@y by-3\pgf@xa
+    \advance\pgf@y by-2\pgf@xb
+    \advance\pgf@y by-.5\pgflinewidth
+    \advance\pgf@x by-\pgf@xa
+  }
+  \anchor{bottom east}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \pgf@xb=\halfradius
+    \advance\pgf@y by-3\pgf@xa
+    \advance\pgf@y by-2\pgf@xb
+    \advance\pgf@y by-.5\pgflinewidth
+    \advance\pgf@x by\pgf@xa
+  }
+  \backgroundpath{%
+      \pgf@x=\radius
+      \pgfutil@tempdima=\pgf@x%
+      \pgfutil@tempdimb=\halfradius%
+      \pgf@xb=\pgfutil@tempdima%
+      \pgf@yb=0\pgfutil@tempdima%
+      \pgf@xc=-\pgfutil@tempdima%
+      \pgf@yc=-3\pgfutil@tempdima%
+      \advance\pgf@yc by-\pgfutil@tempdimb%
+      % If text is present shift shape to center
+      % You need to shift more, but to get the idea
+      \centerpoint
+      \advance\pgf@xb by\pgf@x
+      \advance\pgf@yb by\pgf@y
+      \advance\pgf@xc by\pgf@x
+      \advance\pgf@yc by\pgf@y
+      % Save centerpoint in "a" (top rectangle centerpoint)
+      \pgf@xa=\pgf@x
+      \pgf@ya=\pgf@y
+      \tikz@mode
+      \iftikz@mode@fill
+      \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+      \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yb}}
+      \pgfpathclose
+      \pgfusepath{fill}\fi
+      \advance\pgf@xc by\pgfutil@tempdimb%
+      \pgfpathmoveto{\pgfpoint{\pgf@xc}{\pgf@yb}}%
+      % moving to upper right edge
+      \advance\pgf@xb by-\pgfutil@tempdimb%
+      \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}%
+      % moving to lower right edge
+      \advance\pgf@xb by\pgfutil@tempdimb%
+      \advance\pgf@yb by-\pgfutil@tempdimb%
+      \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}%
+      \advance\pgf@yc by\pgfutil@tempdimb%
+      \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}%
+      % moving to lower left edge
+      \advance\pgf@yc by-\pgfutil@tempdimb%
+      \advance\pgf@xb by-\pgfutil@tempdimb%
+      \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yc}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}%
+      % moving to upper right edge
+      \advance\pgf@xc by-\pgfutil@tempdimb%
+      \advance\pgf@yc by\pgfutil@tempdimb%
+      \pgfpathmoveto{\pgfpoint{\pgf@xc}{\pgf@yc}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yb}}%
+      % closing the path
+      \advance\pgf@xc by\pgfutil@tempdimb%
+      \advance\pgf@yb by\pgfutil@tempdimb%
+      \pgfpathmoveto{\pgfpoint{\pgf@xc}{\pgf@yb}}%
+      \pgfpathclose%
+      \advance\pgf@xb by\pgfutil@tempdimb%
+      \advance\pgf@xc by-\pgfutil@tempdimb%
+      \advance\pgf@yc by-\pgfutil@tempdimb%
+      \edef\pgf@marshal{%
+          \noexpand\pgfpathcircle{%
+              \noexpand\pgfqpoint{\the\pgf@xc}{\the\pgf@yb}}
+              {\the\pgfutil@tempdimb}%
+          \noexpand\pgfpathcircle{%
+              \noexpand\pgfqpoint{\the\pgf@xb}{\the\pgf@yb}}
+              {\the\pgfutil@tempdimb}%
+          \noexpand\pgfpathcircle{%
+              \noexpand\pgfqpoint{\the\pgf@xb}{\the\pgf@yc}}
+              {\the\pgfutil@tempdimb}%
+          \noexpand\pgfpathcircle{%
+              \noexpand\pgfqpoint{\the\pgf@xc}{\the\pgf@yc}}
+              {\the\pgfutil@tempdimb}%
+      }\pgf@marshal
+  }%
+}
+\pgfdeclareshape{fixed support}{%
+  \inheritsavedanchors[from=circle]
+  \saveddimen{\halfradius}{%
+    \pgf@x=.5\pgf@x}
+  \inheritanchor[from=circle]{center}
+  \anchor{west}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \advance\pgf@x by-2\pgf@xa
+  }
+  \anchor{east}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \advance\pgf@x by2\pgf@xa
+  }
+  \anchor{bottom}{%
+    \centerpoint
+  }
+  \anchor{bottom west}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \advance\pgf@x by-2\pgf@xa
+    \advance\pgf@y by-.5\pgflinewidth
+  }
+  \anchor{bottom east}{%
+    \centerpoint
+    \pgf@xa=\radius
+    \advance\pgf@x by2\pgf@xa
+    \advance\pgf@y by-.5\pgflinewidth
+  }
+  \backgroundpath{%
+      \pgf@x=\radius
+      \pgfutil@tempdima=\pgf@x%
+      \pgfutil@tempdimb=\halfradius%
+      \pgf@xb=-2\pgfutil@tempdima
+      \pgf@yb=0\pgfutil@tempdima%
+      \pgf@xc=2\pgfutil@tempdima
+      \pgf@yc=0\pgfutil@tempdima%
+      % If text is present shift shape to center
+      \centerpoint
+      \advance\pgf@xb by\pgf@x
+      \advance\pgf@yb by\pgf@y
+      \advance\pgf@xc by\pgf@x
+      \advance\pgf@yc by\pgf@y
+      % Save centerpoint in "a" (middle line point)
+      \pgf@xa=\pgf@x
+      \pgf@ya=\pgf@y
+      \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}%
+      \pgfpathclose
+  }%
+}
+\pgfdeclareshape{ground}{%
+  \inheritsavedanchors[from=circle]
+  \saveddimen{\halfradius}{%
+    \pgf@x=.5\pgf@x}
+  \saveddimen{\multipliedradius}{%
+    \pgf@x=2\pgf@x% now equal to \radius
+    \pgfmathsetlength{\pgf@x}{\pgfkeysvalueof{/tikz/stretch factor}*\pgf@x}
+    }
+  \inheritanchor[from=circle]{center}
+  \anchor{north}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \advance\pgf@y by0.8\pgf@xa
+  }
+  \anchor{south}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \advance\pgf@y by-0.8\pgf@xa
+  }
+  \anchor{west}{%
+    \centerpoint
+    \pgf@xa=\multipliedradius%
+    \advance\pgf@x by-2.5\pgf@xa
+  }
+  \anchor{east}{%
+    \centerpoint
+    \pgf@xa=\multipliedradius%
+    \advance\pgf@x by2.5\pgf@xa
+  }
+  \anchor{north west}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \pgf@xb=\multipliedradius%
+    \advance\pgf@y by0.8\pgf@xa
+    \advance\pgf@x by-2.5\pgf@xb
+  }
+  \anchor{north east}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \pgf@xb=\multipliedradius%
+    \advance\pgf@y by0.8\pgf@xa
+    \advance\pgf@x by2.5\pgf@xb
+  }
+  \anchor{south west}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \pgf@xb=\multipliedradius%
+    \advance\pgf@y by-0.8\pgf@xa
+    \advance\pgf@x by-2.5\pgf@xb
+  }
+  \anchor{south east}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \pgf@xb=\multipliedradius%
+    \advance\pgf@y by-0.8\pgf@xa
+    \advance\pgf@x by2.5\pgf@xb
+  }
+  \anchor{left}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \pgf@xb=\multipliedradius%
+    \advance\pgf@y by0.8\pgf@xa
+    \advance\pgf@x by-2.5\pgf@xb
+    \advance\pgf@x by2.5\pgf@xa
+  }
+  \anchor{right}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \pgf@xb=\multipliedradius%
+    \advance\pgf@y by0.8\pgf@xa
+    \advance\pgf@x by2.5\pgf@xb
+    \advance\pgf@x by-2.5\pgf@xa
+  }
+  \backgroundpath{%
+      \pgf@x=\radius
+      \pgfutil@tempdima=\pgf@x%
+      \divide\pgf@x by2\relax
+      \pgfutil@tempdimb=\pgf@x%
+      % start of first line
+      \pgf@xb=-2.5\pgfutil@tempdima%
+      \pgfmathsetlength{\pgf@xb}{\pgfkeysvalueof{/tikz/stretch factor}*\pgf@xb}
+      \advance\pgf@xb by\pgfutil@tempdimb
+      \pgf@yb=0.8\pgfutil@tempdima%
+      % end of first line
+      \pgf@xc=-2.5\pgfutil@tempdima%
+      \pgfmathsetlength{\pgf@xc}{\pgfkeysvalueof{/tikz/stretch factor}*\pgf@xc}
+      \pgf@yc=\pgf@yb%
+      \advance\pgf@yc by-1\pgfutil@tempdimb% tan(45)=1
+      % If text is present shift shape to center
+      \centerpoint
+      \advance\pgf@xb by\pgf@x
+      \advance\pgf@yb by\pgf@y
+      \advance\pgf@xc by\pgf@x
+      \advance\pgf@yc by\pgf@y
+      % Save centerpoint in "a" (rectangle center)
+      \pgf@xa=\pgf@x
+      \pgf@ya=\pgf@y
+      \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}%
+      \advance\pgf@xb by\pgfutil@tempdimb
+      \advance\pgf@yc by-\pgfutil@tempdimb
+      \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}%
+      \advance\pgf@xb by\pgfutil@tempdimb
+      \advance\pgf@yc by-\pgfutil@tempdimb
+      \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}%
+      \advance\pgf@xb by\pgfutil@tempdimb
+      \pgf@xc=\pgf@xb%
+      \advance\pgf@xc by-1.6\pgfutil@tempdima
+      \pgf@yc=\pgf@yb%
+      \advance\pgf@yc by-1.6\pgfutil@tempdima
+      \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}%
+      \pgfmathsetmacro{\mec@centrallines}{%
+        10*\pgfkeysvalueof{/tikz/stretch factor}-4}
+      \foreach \x in {1,...,\mec@centrallines}{%
+        \global\advance\pgf@xb by\pgfutil@tempdimb
+        \global\advance\pgf@xc by\pgfutil@tempdimb
+        \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}%
+        \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}%
+      }
+      \advance\pgf@xc by\pgfutil@tempdimb
+      \pgf@xb=2.5\pgfutil@tempdima%
+      \pgfmathsetlength{\pgf@xb}{\pgfkeysvalueof{/tikz/stretch factor}*\pgf@xb}
+      \pgf@yb=0.8\pgfutil@tempdima%
+      \advance\pgf@yb by\pgf@xa
+      \advance\pgf@yb by-1.6\pgfutil@tempdima
+      \advance\pgf@yb by\pgf@xb % should be equal to l
+      \advance\pgf@yb by-\pgf@xc
+      \advance\pgf@xb by\pgf@xa
+      \advance\pgf@yb by\pgf@ya
+      \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}%
+      \advance\pgf@xc by\pgfutil@tempdimb
+      \advance\pgf@yb by-\pgfutil@tempdimb
+      \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}%
+      \advance\pgf@xc by\pgfutil@tempdimb
+      \advance\pgf@yb by-\pgfutil@tempdimb
+      \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}%
+      \pgf@xb=0pt\relax%
+      \advance\pgf@xb by-2.5\pgfutil@tempdima
+      \pgfmathsetlength{\pgf@xb}{\pgfkeysvalueof{/tikz/stretch factor}*\pgf@xb}
+      \advance\pgf@xb by-0.3\pgflinewidth
+      \pgf@yb=0pt\relax%
+      \advance\pgf@yb by0.8\pgfutil@tempdima
+      \pgf@xc=0pt\relax%
+      \advance\pgf@xc by2.5\pgfutil@tempdima
+      \pgfmathsetlength{\pgf@xc}{\pgfkeysvalueof{/tikz/stretch factor}*\pgf@xc}
+      \advance\pgf@xc by0.3\pgflinewidth
+      \pgf@yc=0pt\relax%
+      \advance\pgf@yc by0.8\pgfutil@tempdima
+      % Reconsidering the presence of text on redefined coordinates
+      \advance\pgf@xb by\pgf@xa
+      \advance\pgf@yb by\pgf@ya
+      \advance\pgf@xc by\pgf@xa
+      \advance\pgf@yc by\pgf@ya
+      % draw the horizontal line
+      \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}%
+      \pgfpathclose
+  }%
+}
+\pgfdeclareshape{double pendulum b}{%
+  \inheritsavedanchors[from=circle]
+  \saveddimen{\halfradius}{%
+    \pgf@x=.5\pgf@x}
+  \inheritanchor[from=circle]{center}
+  \anchor{north}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \pgf@xb=\halfradius%
+    \advance\pgf@y by\pgf@xa
+    \advance\pgf@y by\pgf@xb
+  }
+  \anchor{north east}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \pgf@xb=\halfradius%
+    \advance\pgf@x by\pgf@xa
+    \advance\pgf@x by\pgf@xb
+    \advance\pgf@y by\pgf@xa
+    \advance\pgf@y by\pgf@xb
+  }
+  \anchor{north west}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \pgf@xb=\halfradius%
+    \advance\pgf@x by-\pgf@xa
+    \advance\pgf@x by-\pgf@xb
+    \advance\pgf@y by\pgf@xa
+    \advance\pgf@y by\pgf@xb
+  }
+  \anchor{south}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \pgf@xb=\halfradius%
+    \advance\pgf@y by-\pgf@xa
+    \advance\pgf@y by-\pgf@xb
+  }
+  \anchor{south east}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \pgf@xb=\halfradius%
+    \advance\pgf@x by\pgf@xa
+    \advance\pgf@x by\pgf@xb
+    \advance\pgf@y by-\pgf@xa
+    \advance\pgf@y by-\pgf@xb
+  }
+  \anchor{south west}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \pgf@xb=\halfradius%
+    \advance\pgf@x by-\pgf@xa
+    \advance\pgf@x by-\pgf@xb
+    \advance\pgf@y by-\pgf@xa
+    \advance\pgf@y by-\pgf@xb
+  }
+  \anchor{west}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \advance\pgf@x by-\pgf@xa
+  }
+  \anchor{east}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \advance\pgf@x by\pgf@xa
+  }
+  \anchor{north east center}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \advance\pgf@x by\pgf@xa
+    \advance\pgf@y by\pgf@xa
+  }
+  \anchor{north west center}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \advance\pgf@x by-\pgf@xa
+    \advance\pgf@y by\pgf@xa
+  }
+  \anchor{south east center}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \advance\pgf@x by\pgf@xa
+    \advance\pgf@y by-\pgf@xa
+  }
+  \anchor{south west center}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \advance\pgf@x by-\pgf@xa
+    \advance\pgf@y by-\pgf@xa
+  }
+  \anchor{bottom}{%
+    \centerpoint
+    \pgf@xa=\radius%
+    \pgf@xb=\halfradius%
+    \advance\pgf@y by-\pgf@xa
+    \advance\pgf@y by-\pgf@xb
+  }
+  \backgroundpath{%
+      \pgf@x=\radius
+      \pgfutil@tempdima=\pgf@x%
+      \pgfutil@tempdimb=\halfradius%
+      \pgf@xb=\pgfutil@tempdima%
+      \advance\pgf@xb by\pgfutil@tempdimb
+      \pgf@yb=\pgfutil@tempdima%
+      \advance\pgf@yb by\pgfutil@tempdimb
+      \pgf@xc=-\pgfutil@tempdima%
+      \advance\pgf@xc by-\pgfutil@tempdimb
+      \pgf@yc=-\pgfutil@tempdima%
+      \advance\pgf@yc by-\pgfutil@tempdimb
+      % If text is present shift shape to center
+      \centerpoint
+      \advance\pgf@xb by\pgf@x
+      \advance\pgf@yb by\pgf@y
+      \advance\pgf@xc by\pgf@x
+      \advance\pgf@yc by\pgf@y
+      % Save centerpoint in "a" (top rectangle centerpoint)
+      \pgf@xa=\pgf@x
+      \pgf@ya=\pgf@y
+      \tikz@mode
+      \iftikz@mode@fill
+      \advance\pgf@xb by-\pgfutil@tempdimb
+      \advance\pgf@xc by\pgfutil@tempdimb
+      \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+      \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yb}}
+      \pgfpathclose
+      \pgfusepath{fill}
+      \advance\pgf@xb by\pgfutil@tempdimb
+      \advance\pgf@xc by-\pgfutil@tempdimb
+      \fi
+      \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yb}}%
+      \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yc}}%
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}%
+      \advance\pgf@xb by-\pgfutil@tempdimb
+      \advance\pgf@yb by-\pgfutil@tempdima
+      %\advance\pgf@yb by-.5\pgflinewidth
+      \advance\pgf@xc by\pgfutil@tempdimb
+      \advance\pgf@yc by\pgfutil@tempdima
+      %\advance\pgf@yb by.5\pgflinewidth
+      \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+      \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}
+      \pgfpathmoveto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+      \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yb}}
+      \advance\pgf@yb by\pgfutil@tempdimb
+      \advance\pgf@yc by-\pgfutil@tempdimb
+      \edef\pgf@marshal{%
+          \noexpand\pgfpathcircle{%
+              \noexpand\pgfqpoint{\the\pgf@xb}{\the\pgf@yb}}
+              {\the\pgfutil@tempdimb}%
+          \noexpand\pgfpathcircle{%
+              \noexpand\pgfqpoint{\the\pgf@xb}{\the\pgf@yc}}
+              {\the\pgfutil@tempdimb}%
+          \noexpand\pgfpathcircle{%
+              \noexpand\pgfqpoint{\the\pgf@xc}{\the\pgf@yc}}
+              {\the\pgfutil@tempdimb}%
+          \noexpand\pgfpathcircle{%
+              \noexpand\pgfqpoint{\the\pgf@xc}{\the\pgf@yb}}
+              {\the\pgfutil@tempdimb}%
+      }\pgf@marshal
+  }%
+}
+\endinput
+%%
+%% End of file `tikzlibrarymec.code.tex'.

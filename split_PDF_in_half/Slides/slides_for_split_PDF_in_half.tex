@@ -1,0 +1,414 @@
+\documentclass{fancyslides}
+%% Presentation was created using:
+%% Fancyslides class, by Pawel Lupkowski
+%% http://www.staff.amu.edu.pl/~p_lup/?page_id=1057
+%%
+%\usepackage{fontspec}
+
+%% Beamer settings (do not change)
+\usetheme{default} 
+\setbeamertemplate{navigation symbols}{} %no navigation symbols
+\setbeamercolor{structure}{fg=\yourowntexcol} 
+\setbeamercolor{normal text}{fg=\yourowntexcol} 
+
+%%
+%% Extra package
+%%
+
+%% Aspect ratio
+\newcommand{\aspectW}{16}
+\newcommand{\aspectH}{9}
+\usepackage[orientation=landscape,size=custom,width=\aspectW,height=\aspectH,scale=0.5,debug]{beamerposter}
+\usepackage{comment}
+
+%%
+%% GRID & STYLE
+%%
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning}
+%% MY STYLE AND COMMAND FOR TIKZ
+\tikzset{tick/.style={below=3pt}}
+
+%%
+%% Function to call the grid
+%% Usage:
+%% \showTheGrid{1} TRUN ON
+%% \showTheGrid{0} TRUN OFF
+\newcommand{\showTheGrid}[1]{
+    \draw[step=1cm,gray,very thin, opacity=#1] (0,0) grid (\aspectW,\aspectH);
+    \foreach \x in {0,...,\aspectW}
+		\draw [blue, opacity=#1] (\x,4) -- (\x,4) node[below] {\x};
+    \foreach \y in {0,...,\aspectH}
+		\draw [red, opacity=#1] (8,\y) -- (8,\y) node[right] {\y};
+		}
+
+%% Multilanguage support
+%% every time one must be activated and the other deactivated
+\excludecomment{en}
+\includecomment{it}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% CUSTOMISATIONS %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% THE FOLLOWING COLOURS ARE PREDEFINED IN THE CLASS
+%bi -- WHITE
+%cz -- BLACK
+%sz -- GRAY
+%nieb -- BLUE
+%ziel -- GREEN
+%pom -- ORANGE
+%% YOU CAN DEFINE YOUR OWN COLOUR TO USE HERE. SEE MAN.PDF
+
+
+%%%% SLIDE ELEMENTS
+\newcommand{\structureopacity}{0.75} %opacity for the structure elements (boxes and dots)
+\newcommand{\strcolor}{nieb} %elements colour (predefined nieb; pom; ziel)
+
+%%%% TEXT COLOUR
+\newcommand{\yourowntexcol}{bi}
+
+%% COMMAND TO FIX THE LOGO POSITION (x,y) in cm
+\usepackage[absolute,overlay]{textpos}
+\setlength{\TPHorizModule}{1cm}
+\setlength{\TPVertModule}{1cm}
+\newcommand{\MyLogo}{%
+   \begin{textblock}{14}(7.0,3.0)
+      \includegraphics[height=6cm,angle=0]{figures/MyLogo}
+   \end{textblock}
+   }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% TITLE SLIDE DATA %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\titlephrase}{How to crop \& split a PDF \\(in \LaTeX{}, without using it)}
+\newcommand{\name}{Nicola Rainiero}
+\newcommand{\affil}{\href{http://rainnic.altervista.org}{rainnic.altervista.org}}
+\newcommand{\email}{\href{mailto:rainnic@altervista.org}{rainnic@altervista.org}}
+\newcommand{\firm}{Rainnic in the clouds}
+\title{\titlephrase}
+\newcommand{\keyWords}{LaTeX, online, Overleaf, split, crop}
+
+%%
+%% URL ADVANCED
+%%
+\usepackage{hyperref}
+\hypersetup{
+	pdftitle={\@title},
+	pdfsubject={\firm},
+	pdfauthor={\name},
+	pdfkeywords={\keyWords},
+	%pdfpagemode=FullScreen, % once opened it goes in fullscreen mode
+	%citecolor=black,
+	%filecolor=black,
+	%linkcolor=black,
+	%urlcolor=black
+}
+
+\begin{document}
+%\fontspec[Ligatures={TeX}]{Lato} %% SETS THE FONT FOR THE PRESENTATION
+
+%
+% Title page
+%
+\startingslide %this generates titlepage from the data above
+
+%
+% Section 1: Introduction
+%
+\fbckg{figures/6}
+\begin{frame}
+\MyLogo
+\framedsl{A brief introduction}
+\end{frame}
+
+\begin{frame}
+\MyLogo
+\misc{
+	\normalsize{I show you how it is simple and powerful the use of \LaTeX{} to split and crop iteratively a PDF in half, just editing a few lines of code, \emph{basically modifying only some numbers}. You can use my \LaTeX{} template in Overleaf or in your editor.}
+	\newline \newline
+	Here is the link: \textcolor{yellow!100}{\href{http://bit.ly/1F6r5H4}{bit.ly/1F6r5H4}}
+	}
+\end{frame}
+
+\begin{frame}
+\MyLogo
+\misc{
+	\normalsize{
+	\textcolor{white!100}{Online with \emph{Overleaf}: remember that I post a read-only view template. If you want to edit it, you have to paste its content in a new project and register in Overleaf (the only way that allows you to upload PDF files).}
+\newline \newline
+	Here is my sign up link: \textcolor{yellow!100}{\href{https://www.overleaf.com/signup?ref=03181694e0d0}{www.overleaf.com/signup?ref=03181694e0d0}}
+	}}
+\end{frame}
+
+\begin{frame}
+\MyLogo
+\misc{
+	\normalsize{
+	\textcolor{white!100}{In \emph{your local editor}: Copy and paste its content in your \LaTeX{} editor. I suggest you one with an integrated viewer and live update.}
+\newline \newline
+Which one? Check the \emph{Comparison of TeX editors} page on Wikipedia: \newline
+	\textcolor{yellow!100}{\href{http://bit.ly/1lzWyUu}{en.wikipedia.org/wiki/Comparison\_of\_TeX\_editors}}
+	}}
+\end{frame}
+
+\fbckg{figures/1}
+\begin{frame}
+\MyLogo
+ \makebox[\textwidth][c]{\begin{tikzpicture}
+    \showTheGrid{0}
+        \draw [blue, fill=yellow, fill opacity=0.25] (0.55,0.5) rectangle (8.5,8.3) node[red, text opacity=0.95, draw=gray, ultra thin, rounded corners=.25ex, fill=gray!20,text width=5.5cm, text justified,  inner sep=.5ex, below right=1.65,rotate=0] {How it works?\\ \\ It is simple, you have only to edit the area on the left, changing opportunely some numbers.\\ \\In the next sections, I will show you how, with the help of handy examples.};
+  \end{tikzpicture}
+  }
+\end{frame}
+
+%
+% Section 2: Let's start
+%
+\begin{it}
+\begin{frame}
+\MyLogo
+\framedsl{Let's start!}
+\end{frame}
+\end{it}
+
+\begin{frame}
+\MyLogo
+ \makebox[\textwidth][c]{\begin{tikzpicture}
+    \showTheGrid{0}
+    \draw [blue, fill=yellow, fill opacity=0.25] (10,7) rectangle (15,8);
+   \draw[tick, blue, -triangle 90] (10,7.5) to node[rotate=-10] {CLICK HERE} (2.75,8.75);
+  \end{tikzpicture}
+ }
+\end{frame}
+
+\fbckg{figures/2}
+\begin{frame}
+\MyLogo
+\end{frame}
+
+\fbckg{figures/1}
+\begin{frame}
+\MyLogo
+ \makebox[\textwidth][c]{\begin{tikzpicture}
+    \showTheGrid{0}
+    \draw [blue, fill=yellow, fill opacity=0.25] (10,7) rectangle (15,8);
+   \draw[tick, blue, -triangle 90] (10,7.5) to node[above, rotate=18] {PDF FILENAME} (3.75,5.5);
+    \draw[tick, blue, -triangle 90] (10,7.25) to node[rotate=18] {CORRECT THE SIZE} (3.75,5.25);
+     \draw[tick, blue, -triangle 90,rounded corners=5pt] (12.5,7) |- node[above left=0.5, rotate=0] {FIX THE NUMBER OF PAGES} (7.5,1);
+  \end{tikzpicture}
+ }
+\end{frame}
+
+\fbckg{figures/3}
+\begin{frame}
+\MyLogo
+\misc{If your input is correct, you will see in the preview: your PDF and a virtual blue rectangle that cover the first half.}
+\end{frame}
+
+%
+% Section 2: Example 1: just split it in half
+%
+\fbckg{figures/4}
+\begin{frame}
+\MyLogo
+\framedsl{Example 1:}
+\framedsl{split it in two half}
+\end{frame}
+
+\begin{frame}
+\MyLogo
+ \makebox[\textwidth][c]{\begin{tikzpicture}
+    \showTheGrid{0}
+    \draw [blue, fill=yellow, fill opacity=0.25] (0.5,7) rectangle (2.65,7.2) node[red, text opacity=0.95, above right, pos=.5] {{\small FIRST STEP, check in the output the result}};
+    \draw [blue, fill=yellow, fill opacity=0.25] (11,7) rectangle (14,8) node[red, text opacity=0.95, pos=.5] {CROP FALSE};
+        \draw [blue, fill=yellow, fill opacity=0.25] (11,5) rectangle (14,6) node[red, text opacity=0.95, pos=.5] {DOUBLE TRUE};
+   \draw[tick, blue, -triangle 90] (11,7.5) to node[above, rotate=18] {} (2.25,4.5);
+    \draw[tick, blue, -triangle 90] (11,5.5) to node[rotate=18] {} (2.5,3.3);
+  \end{tikzpicture}
+  }
+\end{frame}
+
+\fbckg{figures/5}
+\begin{frame}
+\MyLogo
+ \makebox[\textwidth][c]{\begin{tikzpicture}
+    \showTheGrid{0}
+    \draw [blue, fill=yellow, fill opacity=0.25] (0.5,6.85) rectangle (2.65,7.05) node[red, text opacity=0.95, above right, pos=.5] {{\small SECOND STEP, scroll in the preview the result and save it in a new PDF}};
+    \draw[tick, red, -triangle 90] (12.75,7.5) to node[rotate=18] {} (6.5,8.75);
+    \draw[very thick, blue, open triangle 60-open triangle 60] (15.75,3) to node[rotate=18] {} (15.75,6);   
+  \end{tikzpicture}
+  }
+\end{frame}
+
+%
+% Section 3: Example 2: crop and split it in half
+%
+\fbckg{figures/6}
+\begin{frame}
+\MyLogo
+\framedsl{Example 2:}
+\framedsl{crop and split it}
+\end{frame}
+
+\begin{frame}
+\MyLogo
+ \makebox[\textwidth][c]{\begin{tikzpicture}
+    \showTheGrid{0}
+    \draw [blue, fill=yellow, fill opacity=0.25] (0.5,7) rectangle (2.65,7.2) node[red, text opacity=0.95, above right, pos=.5] {{\small FIRST STEP, check in the output the result}};
+    \draw [blue, fill=yellow, fill opacity=0.25] (11,7) rectangle (14,8) node[red, text opacity=0.95, pos=.5] {CROP TRUE};
+        \draw [blue, fill=yellow, fill opacity=0.25] (11,5) rectangle (14,6) node[red, text opacity=0.95, pos=.5] {DOUBLE TRUE};
+   \draw[tick, blue, -triangle 90] (11,7.5) to node[above, rotate=18] {} (2.25,4.5);
+    \draw[tick, blue, -triangle 90] (11,5.5) to node[rotate=18] {} (2.5,3.3);
+  \end{tikzpicture}
+  }
+\end{frame}
+
+\begin{frame}
+\MyLogo
+ \makebox[\textwidth][c]{\begin{tikzpicture}
+    \showTheGrid{0}
+    \draw [blue, fill=yellow, fill opacity=0.25] (0.5,7) rectangle (2.65,7.2) node[red, text opacity=0.95, above right, pos=.5] {{\small FIRST STEP, check in the output the result}};
+    \draw [blue, fill=yellow, fill opacity=0.25] (2.25,3.95) rectangle (2.75,4.35) node[red, text opacity=0.95, above=0.05] {{\small size of the cutter}};
+    \draw[very thick, orange, open triangle 60-open triangle 60] (9.2,6.7) to node[rotate=90, above] {280} (9.2,1.9);
+    \draw[very thick, orange, open triangle 60-open triangle 60] (9.4,1.7) to node[rotate=0, below] {150} (11.9,1.7);
+        \draw[very thick, orange, open triangle 60-open triangle 60] (12.8,6.7) to node[rotate=90, above] {280} (12.8,1.9);
+    \draw[very thick, orange, open triangle 60-open triangle 60] (12.95,1.7) to node[rotate=0, below] {150} (15.5,1.7);
+  \end{tikzpicture}
+  }
+\end{frame}
+
+\begin{frame}
+\MyLogo
+ \makebox[\textwidth][c]{\begin{tikzpicture}
+    \showTheGrid{0}
+    \draw [blue, fill=yellow, fill opacity=0.25] (0.5,7) rectangle (2.65,7.2) node[red, text opacity=0.95, above right, pos=.5] {{\small FIRST STEP, check in the output the result}};
+    \draw [blue, fill=yellow, fill opacity=0.25] (1.95,1.8) rectangle (2.65,2.65) node[red, text opacity=0.95, align=left, above right] {distance of the two cutters \\ from the bottom left of the page};
+    \draw[very thick, orange, <->] (8.9,3) node[orange, above right] {\huge y} -- (8.9,1.9) -- (10,1.9) node[orange, above right] {\huge x};
+  \end{tikzpicture}
+  }
+\end{frame}
+
+\begin{frame}
+\MyLogo
+ \makebox[\textwidth][c]{\begin{tikzpicture}
+    \showTheGrid{0}
+    \draw [blue, fill=yellow, fill opacity=0.25] (0.5,7) rectangle (2.65,7.2) node[red, text opacity=0.95, above right, pos=.5] {{\small FIRST STEP, check in the output the result}};
+    \draw [blue, fill=yellow, fill opacity=0.25] (1.95,1.8) rectangle (2.65,2.65) node[red, text opacity=0.95, align=left, above right] {distance of the two cutters \\ from the bottom left of the page};
+    \draw[thick, orange, open triangle 60-open triangle 60] (8.9,2.5) to node[rotate=0, above] {30} (9.4,2.5);
+    \draw[thick, orange, open triangle 60-open triangle 60] (8.8,1.92) to node[rotate=0, below] {242} (12.95,1.92);
+  \end{tikzpicture}
+  }
+\end{frame}
+
+\fbckg{figures/7}
+\begin{frame}
+\MyLogo
+ \makebox[\textwidth][c]{\begin{tikzpicture}
+    \showTheGrid{0}
+    \draw [blue, fill=yellow, fill opacity=0.25] (0.5,6.85) rectangle (2.65,7.05) node[red, text opacity=0.95, below right] {{\small SECOND STEP, scroll in the preview the result and save it in a new PDF}};
+    \draw[thick, red, -triangle 90] (13.7,7) to node[rotate=18] {} (6.5,8.75);
+    \draw[very thick, blue, open triangle 60-open triangle 60] (15.75,3) to node[rotate=18] {} (15.75,6);   
+  \end{tikzpicture}
+  }
+\end{frame}
+
+%
+% Section 4: Example 3: crop and split it in half
+%
+\fbckg{figures/8}
+\begin{frame}
+\MyLogo
+\framedsl{Example 3:}
+\framedsl{only crop it}
+\end{frame}
+
+\begin{frame}
+\MyLogo
+ \makebox[\textwidth][c]{\begin{tikzpicture}
+    \showTheGrid{0}
+    \draw [blue, fill=yellow, fill opacity=0.25] (0.5,7) rectangle (2.65,7.2) node[red, text opacity=0.95, above right, pos=.5] {{\small FIRST STEP, check in the output the result}};
+    \draw [blue, fill=yellow, fill opacity=0.25] (11,7) rectangle (14,8) node[red, text opacity=0.95, pos=.5] {CROP TRUE};
+        \draw [blue, fill=yellow, fill opacity=0.25] (11,5) rectangle (14,6) node[red, text opacity=0.95, pos=.5] {DOUBLE FALSE};
+   \draw[tick, blue, -triangle 90] (11,7.5) to node[above, rotate=18] {} (2.25,4.5);
+    \draw[tick, blue, -triangle 90] (11,5.5) to node[rotate=18] {} (2.5,3.3);
+  \end{tikzpicture}
+  }
+\end{frame}
+
+\fbckg{figures/9}
+\begin{frame}
+\MyLogo
+ \makebox[\textwidth][c]{\begin{tikzpicture}
+    \showTheGrid{0}
+    \draw [blue, fill=yellow, fill opacity=0.25] (0.5,7) rectangle (2.65,7.2) node[red, text opacity=0.95, above right, pos=.5] {{\small FIRST STEP, check in the output the result}};
+    \draw [blue, fill=yellow, fill opacity=0.25] (2.25,3.95) rectangle (2.75,4.35) node[red, text opacity=0.95, above=0.05] {{\small size of the cutter}};
+    \draw[very thick, orange, open triangle 60-open triangle 60] (9.2,6.35) to node[rotate=90, above] {280} (9.2,1.65);
+    \draw[very thick, orange, open triangle 60-open triangle 60] (9.4,1.5) to node[rotate=0, below] {360} (15.45,1.5);
+  \end{tikzpicture}
+  }
+\end{frame}
+
+\begin{frame}
+\MyLogo
+ \makebox[\textwidth][c]{\begin{tikzpicture}
+    \showTheGrid{0}
+    \draw [blue, fill=yellow, fill opacity=0.25] (0.5,7) rectangle (2.65,7.2) node[red, text opacity=0.95, above right, pos=.5] {{\small FIRST STEP, check in the output the result}};
+    \draw [blue, fill=yellow, fill opacity=0.25] (1.95,2.2) rectangle (2.65,2.65) node[red, text opacity=0.95, align=left, above right] {distance of the first cutter \\ from the bottom left of the page};
+    \draw[very thick, orange, <->] (8.9,2.6) node[orange, above right] {\huge y} -- (8.9,1.6) -- (9.9,1.6) node[orange, above right] {\huge x};
+  \end{tikzpicture}
+  }
+\end{frame}
+
+\begin{frame}
+\MyLogo
+ \makebox[\textwidth][c]{\begin{tikzpicture}
+    \showTheGrid{0}
+    \draw [blue, fill=yellow, fill opacity=0.25] (0.5,7) rectangle (2.65,7.2) node[red, text opacity=0.95, above right, pos=.5] {{\small FIRST STEP, check in the output the result}};
+    \draw [blue, fill=yellow, fill opacity=0.25] (1.95,2.2) rectangle (2.65,2.65) node[red, text opacity=0.95, align=left, above right] {distance of the first cutter \\ from the bottom left of the page};
+    \draw[thick, orange, open triangle 60-open triangle 60] (8.9,1.6) to node[rotate=0, above] {30} (9.4,1.6);
+    \draw[thick, orange, <->] (9.8,1.5) to node[rotate=0, right] {3} (9.8,1.7);
+  \end{tikzpicture}
+  }
+\end{frame}
+
+\fbckg{figures/10}
+\begin{frame}
+\MyLogo
+ \makebox[\textwidth][c]{\begin{tikzpicture}
+    \showTheGrid{0}
+    \draw [blue, fill=yellow, fill opacity=0.25] (0.5,6.85) rectangle (2.65,7.05) node[red, text opacity=0.95, above right=0.5] {{\small SECOND STEP, scroll in the preview the result and save it in a new PDF}};
+    \draw[thick, red, -triangle 90] (14.1,8) to node[rotate=18] {} (6.5,8.75);
+    \draw[very thick, blue, open triangle 60-open triangle 60] (15.75,3) to node[rotate=18] {} (15.75,6);   
+  \end{tikzpicture}
+  }
+\end{frame}
+
+%
+% Thank you
+%
+\fbckg{figures/6}
+\begin{frame}
+\MyLogo
+  \thankyou   %%%% ending slide with thank you notice
+\end{frame}
+
+%
+% Sources
+%
+\fbckg{figures/blank}
+\begin{frame}
+%\MyLogo
+\sources{
+\includegraphics[width=0.10\textwidth]{figures/github-collab-retina-preview} \ \href{http://bit.ly/1BIVkRN}{bit.ly/1BIVkRN}\\
+\includegraphics[width=0.10\textwidth]{figures/logo} \ \href{http://rainnic.altervista.org/tag/latex}{rainnic.altervista.org/tag/latex}
+
+\vspace{1.0cm}
+
+\noindent
+
+Presentation was created using: \textit{\href{http://bit.ly/1Ej1whM}{Fancyslides class} by Pawel Lupkowski}
+}
+\end{frame}
+
+\end{document}

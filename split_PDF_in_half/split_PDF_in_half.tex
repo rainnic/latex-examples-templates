@@ -1,0 +1,182 @@
+%\title{How to split a PDF in half}
+%% Original version by J.S.Milne 25.09.05
+%% (two2one.tex - http://www.jmilne.org/math/Books/scan.html)
+%%
+%%
+%% 					Updated by Nicola Rainiero
+%% 					http://rainnic.altervista.org/it/tag/latex
+%%					------------------------------------------
+%%
+%% Read me:
+%% - Load your PDF (Project --> files)
+%% - Change opportunely the size and the number of pages
+%% - To discovering the correct size, you can use software like:
+%%   Inkscape, Gimp or a PDF Reader
+%% - I put the units in mm but you can choose in whatever you want
+%% - Activate a step at a time
+%%
+
+\documentclass[geometry]{minimal}
+\usepackage{mathptmx}
+\usepackage[12pt]{moresize}
+\usepackage{comment}
+\usepackage{ifthen}
+\usepackage{pdfpages}
+\usepackage{tikz}
+
+
+% <---------------------------- EDIT THIS AREA ONLY ----------------------------------->
+
+% Default style and colour of the cutter
+\tikzset{marker/.style={draw=blue,fill=blue, opacity=0.25}}
+
+%% Every time one of the following must be activated and the others deactivated
+%% \includecomment{...} --> means turn ON
+%% \excludecomment{...} --> means turn OFF
+\includecomment{first} 		% for discovering the dimension of the cuts
+\excludecomment{second}		% for printing a cleaned and trimmed PDF
+\excludecomment{third}		% for joining the pages of the II stage without white spaces
+							% (save and use the new PDF before to do it)
+
+%%
+%% Define the file name and the dimension of your PDF
+%% Put the size in mm
+%% The typical size of an A4 document is 210x297 mm
+\newcommand\units{mm}					% <--- set the units (default mm)
+\newcommand\fileName{two_side.pdf}		% <--- the name of the PDF to process
+\newcommand\width{420} 					% <--- the width size in mm of your PDF
+\newcommand\height{297} 				% <--- the height size in mm of your PDF
+
+%%
+%% 							Do you want to crop the white spaces around the PDF?
+%%
+\newcommand\crop{1} 					% <-- "0" FALSE "1" TRUE
+% If true put the dimension of the virtual rectangle that covers the pages
+\newcommand\cutterW{150} 				% <--- the width size in mm of your cutter
+\newcommand\cutterH{280} 				% <--- the height size in mm of your cutter
+
+%%
+%% 							Do you want to cut two sections per page?
+%%
+\newcommand\double{1} 					% <--- "0" FALSE "1" TRUE
+%% If true put x_i, y_i the coordinates for moving the virtual rectangle in the page
+%% the system start at the bottom left of the whole page
+%% YOU CAN PUT ONLY INTEGER NUMBER
+%% first rectangle in page (generally odd) or the only one
+\newcommand\xOdd{30}					% <-- x_1
+\newcommand\yOdd{3}						% <-- y_1
+%% second rectangle in page (generally even)
+\newcommand\xEven{242}					% <-- x_2
+\newcommand\yEven{3}					% <-- x_2
+
+%%
+%% 							How many pages do you want to process?
+%% default pages + 1, pages +0 if there are two page increment in the 2 step
+\newcommand\numberPages{6} 				% <--- the numbers of pages
+\newcommand\firstPage{1} 				% <--- fix the first page to start
+
+% <---------------------------- EDIT THIS AREA ONLY  ----------------------------------->
+
+\newcommand\DxOdd{\the\numexpr\xOdd+\cutterW}
+\newcommand\DyOdd{\the\numexpr\yOdd+\cutterH}
+\newcommand\DxEven{\the\numexpr\xEven+\cutterW}
+\newcommand\DyEven{\the\numexpr\yEven+\cutterH}    
+\newcommand\halfW{\the\numexpr\width/2}
+\newcommand\halfH{\the\numexpr\height/2}
+
+\begin{first}
+   %% The dimension of the original PDF
+   \usepackage[paperwidth=\width \units,paperheight=\height \units]{geometry}
+\end{first}
+
+\begin{second}
+   \ifthenelse{\crop=0}
+      {\usepackage[paperwidth=\halfW mm,paperheight=\height mm]{geometry}}
+      {\usepackage[paperwidth=\cutterW \units,paperheight=\cutterH \units]{geometry}}
+\end{second}
+
+\begin{third}
+   %% Put opportunely the dimension of the final page
+   %% it must be an exact multiple of the box discovered in the first step
+   %% for example if you want to join perfectly, losing the white spaces
+   \usepackage[paperwidth=\the\numexpr\cutterW*2 \units,paperheight=\cutterH \units]{geometry}
+\end{third}
+
+\newcounter{pg} %counter of pages
+\begin{document}
+
+%% Check if the PDF exists
+\IfFileExists{\fileName}
+   {\includecomment{checkTrue}}
+   {\excludecomment{checkTrue} 
+      \begin{center}
+         {\HUGE LOAD A PDF FIRST!}
+         \par \addvspace \bigskipamount \par
+         {\HUGE Put the correct name and size in the edit area.}
+         \par \addvspace \bigskipamount \par
+         {\HUGE Correct the other options and enjoy!}
+      \end{center}
+   }
+
+\begin{checkTrue}
+%\InputIfFileExists{two_side.pdf}{
+% -------------------------
+% 				FIRST STEP:
+% -------------------------
+% Size and draw the boxes in the original PDF
+% To activated it: \includecomment{first}
+\ifthenelse{\crop=0}
+   {\newcommand{\mycbox}{\tikz{\path[marker] (0,0) rectangle (\halfW \units,\height \units);}}}
+   {\newcommand{\mycbox}{\tikz{\path[marker] (0,0) rectangle (\cutterW \units, \cutterH \units);}}}
+
+\begin{first}
+   %% pages={-} means all
+   %% pages={1-5} means the interval between 1 to 5
+   \includepdf[pages={-}, picturecommand={
+      \setlength{\unitlength}{1.0 \units}
+      \ifthenelse{\crop=0}
+         {\put(0,0){\mycbox}
+          \ifthenelse{\double=1}{\put(\halfW,0){\mycbox}}{}}
+         {\put(\xOdd,\yOdd){\mycbox}
+          \ifthenelse{\double=1}{\put(\xEven,\yEven){\mycbox}}{}}
+   }]{\fileName}
+\end{first}
+
+
+% --------------------------
+% 				SECOND STEP:
+% --------------------------
+% Draw the pages using the coordinates and the size discovered in the first step
+% To activated it: \includecomment{second}
+%
+% Save the PDF output
+%
+\begin{second}
+   \setcounter{pg}{\firstPage} %fix the first page to start
+   \whiledo{\value{pg}<\numberPages}{% default pages+1, pages+0 for two increment
+      \ifthenelse{\crop=1}
+       {\includepdf[pages=\thepg,viewport=\xOdd mm \yOdd mm \DxOdd mm \DyOdd mm]{\fileName}
+        \ifthenelse{\double=1}{\includepdf[pages=\thepg,viewport=\xEven mm \yEven mm \DxEven mm \DyEven mm]{\fileName}}{}}
+       {\ifthenelse{\double=1}{\includepdf[pages=\thepg,viewport=0mm 0mm \halfW mm \height mm]{\fileName}
+        \includepdf[pages=\thepg,viewport=\xEven mm \yEven mm \DxEven mm \DyEven mm]{\fileName}}
+       {\includepdf[pages=\thepg,viewport=0mm 0mm \halfW mm \height mm]{\fileName}}}      
+      %page increment
+      \addtocounter{pg}{1}
+   }
+\end{second}
+
+% -------------------------
+% 				THIRD STEP:
+% -------------------------
+% Useful if you want to join a cropped PDF
+%
+% Usage: nup=2x1 means print 2 columns x 1 row (= 2 pages per page)
+% To activated it: \includecomment{third}
+%
+% Save the PDF output of the II stage and load it (Project --> files)
+\begin{third}
+   \includepdf[pages=-, nup=2x1]{split-pdf-half.pdf}%<-your last PDF
+\end{third}
+\end{checkTrue}
+
+\end{document}

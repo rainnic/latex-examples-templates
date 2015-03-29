@@ -37,9 +37,9 @@
 \newcommand{\showTheGrid}[1]{
     \draw[step=1cm,gray,very thin, opacity=#1] (0,0) grid (\aspectW,\aspectH);
     \foreach \x in {0,...,\aspectW}
-		\draw [blue, opacity=#1] (\x,4) -- (\x,4) node[below] {\x};
+		\draw [blue, opacity=#1] (\x,\aspectH/2) -- (\x,\aspectH/2) node[below] {\x};
     \foreach \y in {0,...,\aspectH}
-		\draw [red, opacity=#1] (8,\y) -- (8,\y) node[right] {\y};
+		\draw [red, opacity=#1] (\aspectW/2,\y) -- (\aspectW/2,\y) node[right] {\y};
 		}
 
 %% Multilanguage support
@@ -98,7 +98,7 @@
 	pdfsubject={\firm},
 	pdfauthor={\name},
 	pdfkeywords={\keyWords},
-	%pdfpagemode=FullScreen, % once opened it goes in fullscreen mode
+	pdfpagemode=FullScreen, % once opened it goes in fullscreen mode
 	%citecolor=black,
 	%filecolor=black,
 	%linkcolor=black,
@@ -157,7 +157,7 @@ Which one? Check the \emph{Comparison of TeX editors} page on Wikipedia: \newlin
 \MyLogo
  \makebox[\textwidth][c]{\begin{tikzpicture}
     \showTheGrid{0}
-        \draw [blue, fill=yellow, fill opacity=0.25] (0.55,0.5) rectangle (8.5,8.3) node[red, text opacity=0.95, draw=gray, ultra thin, rounded corners=.25ex, fill=gray!20,text width=5.5cm, text justified,  inner sep=.5ex, below right=1.65,rotate=0] {How it works?\\ \\ It is simple, you have only to edit the area on the left, changing opportunely some numbers.\\ \\In the next sections, I will show you how, with the help of handy examples.};
+        \draw [blue, fill=yellow, fill opacity=0.25] (0.55,0.5) rectangle (8.5,8.3) node[red, text opacity=0.95, draw=gray, ultra thin, rounded corners=.25ex, fill=gray!20,text width=5.5cm, text justified,  inner sep=.5ex, below right=1.65,rotate=0] {How does it work?\\ \\ It is simple, you have only to edit the area on the left, changing opportunely some numbers.\\ \\In the next sections, I will show you how, with the help of handy examples.};
   \end{tikzpicture}
   }
 \end{frame}

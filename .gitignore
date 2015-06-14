@@ -5,10 +5,13 @@
 *.gz
 *.pdf
 
-# but do track two PDF files, even though you're ignoring .pdf files above
+# but do track the following files, even though you're ignoring .pdf files above
 !splitted-pdf.pdf
 !two_side.pdf
 !tikz-mec.pdf
+!even.pdf
+!even_rev.pdf
+!merge_odd_and_even_pages_together.pdf
 
 # ignore all files that end with a tilde
 *~

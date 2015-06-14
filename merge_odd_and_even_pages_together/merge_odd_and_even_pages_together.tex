@@ -1,0 +1,104 @@
+%\title{How to merge a PDF split in odd and even pages}
+%%
+%% 					Created by Nicola Rainiero
+%% 					http://rainnic.altervista.org/it/tag/latex
+%%					------------------------------------------
+%%
+%% Read me:
+%% - Load your PDFs (Project --> files)
+%% 		- the PDF that contains odd pages
+%% 		- the PDF that contains even pages
+%% - Change opportunely the size and the number of pages
+%% - To discovering the correct size, you can use software like:
+%%   Inkscape, Gimp or a PDF Reader
+%% - The default units are in mm but you can choose in whatever you want
+%% - Specify if the even pages are reversed ("1") or not ("0") 
+%%
+
+\documentclass[geometry]{minimal}
+\usepackage{mathptmx}
+\usepackage[12pt]{moresize}
+\usepackage{comment}
+\usepackage{ifthen}
+\usepackage{pdfpages}
+
+
+% <---------------------- EDIT THIS AREA ONLY ----------------------------->
+
+%%
+%% Define the file names and the dimension of your PDF
+%% Put the size in mm
+%% The typical size of an A4 document is 210x297 mm
+%%
+\newcommand\units{mm}				% <--- set the units (default mm)
+\newcommand\fileOdd{odd.pdf}		% <--- the PDF that contains odd pages
+\newcommand\fileEven{even_rev.pdf}	% <--- the PDF that contains even pages
+\newcommand\width{210} 				% <--- the width size in mm of your PDF
+\newcommand\height{297} 			% <--- the height size in mm of your PDF
+%%
+%% 							Are reversed the even pages?
+\newcommand\reversed{1} 	% <--- "1" YES, "0" NO
+%%
+%% 							How many pages do you want to process?
+\newcommand\numberPages{3} 	% <--- the numbers of pages to process
+%%
+% <---------------------- EDIT THIS AREA ONLY  ----------------------------->
+
+
+   %% The dimension of the PDF
+   \usepackage[paperwidth=\width \units,paperheight=\height \units]{geometry}
+
+\newcounter{pg} %counter of pages
+\begin{document}
+
+%% Check if the PDFs exist
+\IfFileExists{\fileOdd}
+   {\includecomment{checkTrue}}
+   {\excludecomment{checkTrue} 
+      \begin{center}
+         \par \addvspace \bigskipamount \par
+         {\Huge LOAD THE PDF THAT CONTAINS THE ODD PAGES!}
+         \par \addvspace \bigskipamount \par
+         {\Huge Put the correct name and size in the edit area.
+          Correct the other options and enjoy!}
+         \par \addvspace \bigskipamount \par
+      \end{center}
+   }
+\IfFileExists{\fileEven}
+   {\includecomment{checkTrue}}
+   {\excludecomment{checkTrue} 
+      \begin{center}
+         \par \addvspace \bigskipamount \par
+         {\Huge LOAD THE PDF THAT CONTAINS THE EVEN PAGES!}
+         \par \addvspace \bigskipamount \par
+         {\Huge Put the correct name and size in the edit area.
+          Correct the other options and enjoy!}
+         \par \addvspace \bigskipamount \par
+      \end{center}
+   }
+
+
+\begin{checkTrue}
+% Save the PDF output
+	%% Check if the reversed mode is activated
+	\ifthenelse{\reversed=0}
+   		{\setcounter{pg}{1} %fix the first page to start
+   		\whiledo{\value{pg}<\the\numexpr\numberPages+1}{
+       		{\includepdf[pages=\thepg]{\fileOdd}}
+       		\def \lastPage{\the\numexpr\numberPages+1-\thepg}
+       		{\includepdf[pages=\lastPage]{\fileEven}}
+      		%page increment
+      		\addtocounter{pg}{1}
+   			}		
+   		}
+   		{\setcounter{pg}{1} %fix the first page to start
+   		\whiledo{\value{pg}<\the\numexpr\numberPages+1}{
+       		{\includepdf[pages=\thepg]{\fileOdd}}
+       		{\includepdf[pages=\thepg]{\fileEven}}
+      		%page increment
+      		\addtocounter{pg}{1}
+   			}
+   		}
+\end{checkTrue}
+
+\end{document}

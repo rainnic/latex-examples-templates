@@ -1,0 +1,411 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX Template: Designer's CV
+%
+% Source: http://www.howtotex.com
+% 
+% Feel free to distribute this example, but please keep the referral
+% to HowToTeX.com
+% 
+% Date: March 2012
+%
+% Modified by Lim Lian Tze to support multiple pages using fix provided at
+% http://www.howtotex.com/templates/creating-a-designers-cv-in-latex/
+% Date: November 2014
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% How to use overleaf: 
+%
+% You edit the source code here on the left, and the preview on the
+% right shows you the result within a few seconds.
+%
+% Bookmark this page and share the URL with your co-authors. They can
+% edit at the same time!
+%
+% You can upload figures, bibliographies, custom classes and
+% styles using the files menu.
+%
+% If you're new to LaTeX, the wikibook is a great place to start:
+% http://en.wikibooks.org/wiki/LaTeX
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% "ModernCV" CV and Cover Letter
+% LaTeX Template
+% Version 1.1 (9/12/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Xavier Danaux (xdanaux@gmail.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0%
+% Important note:
+% This template requires the moderncv.cls and .sty files to be in the same 
+% directory as this .tex file. These files provide the resume style and themes 
+% used for structuring the document.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[11pt,a4paper,sans]{moderncv} % Font sizes: 10, 11, or 12; paper sizes: a4paper, letterpaper, a5paper, legalpaper, executivepaper or landscape; font families: sans or roman
+
+\moderncvstyle{classic} % CV theme - options include: 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvcolor{blue} % CV color - options include: 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
+\usepackage{xcolor}
+\colorlet{secondary}{color1!25!color2} % Header and Curriculum Vitae
+
+
+\usepackage[scale=0.9]{geometry} % Reduce document margins
+%\setlength{\hintscolumnwidth}{3cm} % Uncomment to change the width of the dates column
+\setlength{\makecvtitlenamewidth}{10cm} % For the 'classic' style, uncomment to adjust the width of the space allocated to your name
+
+\usepackage{eurosym}
+\usepackage{comment}
+\usepackage{scalefnt}
+
+%
+% specialfont requires the XeteX compiler
+% if you do not want to insert Skype & Linkedin item change in \excludecomment
+%
+\includecomment{specialfont}
+
+%
+% Package and instruction to have Skype and Linkedin logo
+% WARINING: fontawesome is based on fontspec
+% that requires either XeTeX or LuaTeX to function
+%
+\begin{specialfont}
+\usepackage{fontawesome}
+\newfontfamily{\FA}{FontAwesome}
+\newcommand\faSkype{{\FA\symbol{"F17E}}}
+\end{specialfont}
+%
+% skype logo
+%
+\usepackage[margin=10pt,font=small,labelfont=bf]{caption}
+% Source: http://www.latex-community.org/forum/viewtopic.php?f=4&t=14668
+%
+% TikZ: styles and functions
+% 
+\usepackage{tikz}
+\usetikzlibrary{mindmap,calc,patterns,decorations.pathmorphing,decorations.markings}
+
+\tikzstyle{educationBar} = [rounded corners=1mm,fill=color1!40!white, draw=white]
+\tikzstyle{educationText} = [rectangle, above=.1cm, align=center, font=\sffamily,scale=1.0]
+\tikzstyle{experienceBar} = [rounded corners=1mm,fill=color1!40!white, draw=white]
+\tikzstyle{experienceText} = [rectangle, below=.1cm, align=center, font=\sffamily,scale=1.00]
+
+%%
+%% Function to call the grid
+%% Usage:
+%% \showTheGrid{1} TRUN ON
+%% \showTheGrid{0} TRUN OFF
+\newcommand{\aspectW}{21}
+\newcommand{\aspectH}{10}
+\newcommand{\showTheGrid}[1]{
+    \draw[step=1cm,gray,very thin, opacity=#1] (0,0) grid (\aspectW,\aspectH);
+    \foreach \x in {1,...,\the\numexpr\aspectW-1} {
+%%		\draw [blue, opacity=#1] (\x,\aspectH/2) -- (\x,\aspectH/2) node[below] {\huge{\x}};
+    \ifodd\x\relax
+		\draw [blue, opacity=#1] (\x,\aspectH/2) -- (\x,\aspectH/2) node[below] {\huge{\x}};
+		\else
+	\fi }
+    \foreach \y in {1,...,\the\numexpr\aspectH-1} {
+%		\draw [red, opacity=#1] (\aspectW/2,\y) -- (\aspectW/2,\y) node[right] {\huge{\y}};
+    \ifodd\y\relax
+		\draw [red, opacity=#1] (\aspectW/2, \y) -- (\aspectW/2, \y) node[right] {\huge{\y}};
+		\else
+	\fi }
+		}
+%----------------------------------------------------------------------------------------
+
+
+%----------------------------------------------------------------------------------------
+% Multilanguage custom data
+%----------------------------------------------------------------------------------------
+%
+% Activate Italian or English language:
+%
+\excludecomment{it}
+\includecomment{en}
+
+% Italian
+\begin{it}
+\usepackage[english]{babel} %english, UKenglish or italian
+\newcommand\titleText{Curriculum Vitae}
+\newcommand\quoteText{Working from scratch, following simplicity}
+\newcommand\quoteExtended{Poter applicare e migliorare le mie abilit\`a tecniche\\nella programmazione scientifica e nello sviluppo di siti web}
+%
+% TIMELINE
+%
+\newcommand\educationTitle{Istruzione e formazione}
+%
+\newcommand\schoolTitle{Diploma di Laurea in Ingegneria Civile\\indirizzo geotecnico -- Universit\`a di Padova}
+\newcommand\professionalTitle{Abilitazione alla professione d'ingegnere\\iscrizione presso l'Ordine di Rovigo}
+\newcommand\sabbaticalTitle{Vacanza studio e cameriere occasionale ad Eastbourne (UK)\\sostenuto un corso d'inglese}
+%
+\newcommand\worksTitle{Esperienze professionali}
+%
+\newcommand\workTitleA{Addetto controllo accessi, cassiere e caposervizio\\Coopgress - Verona $83$, presso \emph{PadovaFiere SpA}}
+\newcommand\workTitleB{Ingegnere civile freelance\\Societ\`a professionale \emph{Project SCARL}, Rovigo}
+\newcommand\workTitleC{Progetto REGEOCITIES e collaborazione\\Scuola Sant'Anna e ERGO SRL, Pisa}
+%
+% MINDMAP
+\newcommand\mindmapTitle{\textsc{\huge abilit\`a\\acquisite}}
+%
+% FIRST MAP (IN THE TOP LEFT)
+\newcommand\mindmapTitleA{\small \textsc{competenze\\maturate}}
+\newcommand\mindmapAitemA{Responsabile quartiere fieristico con idoneit\`a antincendio a rischio elevato}
+\newcommand\mindmapAitemB{Controllo e monitoraggio durante fiere, manifestazioni e concerti}
+\newcommand\mindmapAitemC{Ascolto e soluzione di problematiche legate al pubblico e agli organizzatori}
+% SECOND MAP (IN THE TOP RIGHT)
+\newcommand\mindmapTitleB{\small \textsc{qualit\`a\\trasversali}}
+\newcommand\mindmapBitemA{Problem solving}
+\newcommand\mindmapBitemB{Lavoro, gestione e supervisione di un gruppo di persone}
+\newcommand\mindmapBitemC{Capacit\`a di sopportare carichi di lavoro continuativi, festivi e notturni}
+% THIRD MAP (IN THE BOTTOM RIGHT)
+\newcommand\mindmapTitleC{\textsc{lingue\\conosciute}} %conoscenze\\linguistiche
+\newcommand\mindmapCitemA{Italiano -- madrelingua}
+\newcommand\mindmapCitemB{Inglese -- B1\\Eastbourne School of English (2013)}
+\newcommand\mindmapCitemC{Francese -- A1\\Conoscenza scolastica}
+% FOURTH MAP (IN THE BOTTOM LEFT)
+\newcommand\mindmapTitleD{\textsc{software\\utilizzato}}
+\newcommand\mindmapDitemA{Pacchetto Office e LibreOffice, redazione di documenti in LaTeX}
+\newcommand\mindmapDitemB{Octave, NVivo e R per l'analisi qualitativa e quantitativa di dati}
+\newcommand\mindmapDitemC{AutoCAD e Blender per la rappresentazione architettonica}
+\end{it}
+% English
+\begin{en}
+\usepackage[english]{babel} %english, UKenglish or italian
+\newcommand\titleText{Curriculum Vitae} % or R\'esum\'e
+\newcommand\quoteText{Working from scratch, following simplicity}
+\newcommand\quoteExtended{To obtain a position that would enable me to enlarge my skills\\ in scientific programming, IT and web applications}
+%
+% TIMELINE
+%
+\newcommand\educationTitle{Education and Training}
+%
+\newcommand\schoolTitle{Postgraduate in Civil Engineering\\Geotechnical Field -- Universit\`a di Padova}
+\newcommand\professionalTitle{Professional Engineer\\enrolled at Rovigo Association of Engineers}
+\newcommand\sabbaticalTitle{Study trip \& occasional waiter in Eastbourne (UK)\\achieved an English Course}
+%
+\newcommand\worksTitle{Work experience}
+%
+\newcommand\workTitleA{Steward, cashier and wakeful\\Coopgress - Verona $83$, Padova}
+\newcommand\workTitleB{Freelance Civil Engineer\\Project SCARL, Rovigo}
+\newcommand\workTitleC{Internship \& Collaboration\\Scuola Sant'Anna \& ERGO SRL, Pisa}
+%
+% MINDMAP
+\newcommand\mindmapTitle{\textsc{\LARGE knowledge \& expertise}}
+%
+% FIRST MAP (IN THE TOP LEFT)
+\newcommand\mindmapTitleA{\small \textsc{goals\\achieved}}
+\newcommand\mindmapAitemA{Designed and developed Forex panels for the exhibition stand}
+\newcommand\mindmapAitemB{Administered questionnaires in response to certain visual incentives}
+\newcommand\mindmapAitemC{Collected data}
+% SECOND MAP (IN THE TOP RIGHT)
+\newcommand\mindmapTitleB{\small \textsc{adaptive\\skills}}
+\newcommand\mindmapBitemA{Problem solving}
+\newcommand\mindmapBitemB{Teamwork, working with the public, get results}
+\newcommand\mindmapBitemC{Mulltitask}
+% THIRD MAP (IN THE BOTTOM RIGHT)
+\newcommand\mindmapTitleC{\textsc{language\\proficiency}} %conoscenze\\linguistiche
+\newcommand\mindmapCitemA{Italian -- Mothertongue}
+\newcommand\mindmapCitemB{English -- B1, Professional Working\\Eastbourne School of English (2013)}
+\newcommand\mindmapCitemC{French -- A1, Limited Working\\Scholastic level}
+% FOURTH MAP (IN THE BOTTOM LEFT)
+\newcommand\mindmapTitleD{\textsc{software\\used}}
+\newcommand\mindmapDitemA{Microfot Office and LibreOffice, \LaTeX{}}
+\newcommand\mindmapDitemB{Octave, NVivo, R and IPhyton for quantitative and qualitative analysis}
+\newcommand\mindmapDitemC{AutoCAD and Blender for 2D and 3D design}
+\end{en}
+
+%----------------------------------------------------------------------------------------
+
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CONTACT INFORMATION SECTION
+%----------------------------------------------------------------------------------------
+
+\firstname{Nicola} % Your first name
+\familyname{Rainiero} % Your last name
+
+% All information in this block is optional, comment out any lines you don't need
+\title{\titleText}
+\begin{it}
+\address{Via Tal dei Tali 25}{CAP, Citt\`a (PROVINCIA)}
+\phone{$+39\,\#\#\#\#\,\#\#\#\#\#$}
+\fax{$+39\,\#\#\#\#\,\#\#\#\#\#$}
+\mobile{$+39\,\#\#\#\,\#\#\#\#\#\#\#$}
+\end{it}
+\begin{en}
+\address{25 Street Name}{Postcode, City (District) -- Country}
+\mobile{$+44\,(0)\#\#\#\#\,\#\#\#\#\#\#$}
+\phone{$+44\,(0)\#\#\#\#\,\#\#\#\#\#\#$}
+\fax{$+44\,(0)\#\#\#\#\,\#\#\#\#\#\#$}
+\end{en}
+
+%
+% Skype and LinkedIN logo
+% 
+\begin{specialfont}
+\begin{it}
+\extrainfo{\faLinkedin~ \href{http://it.linkedin.com/in/nicolarainiero}{it.linkedin.com/in/nicolarainiero}\\\faSkype~ rainnico\\}
+\end{it}
+\begin{en}
+\extrainfo{\faLinkedin~ \href{http://it.linkedin.com/in/nicolarainiero/en}{it.linkedin.com/in/nicolarainiero}\\\faSkype~ rainnico\\}
+\end{en}
+\end{specialfont}
+%
+%
+\homepage{http://rainnic.altervista.org/}{rainnic.altervista.org}
+
+\photo[70pt][0.07pt]{profile} % The first bracket is the picture height, the second is the thickness of the frame around the picture (0pt for no frame)
+
+%----------------------------------------------------------------------------------------
+\quote{\quoteText}
+%\quote{\quoteExtended}
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\makecvtitle % Print the CV title
+
+%----------------------------------------------------------------------------------------
+%	TIMELINE
+%----------------------------------------------------------------------------------------
+
+\begin{minipage}{1.0\columnwidth}
+  \centering
+  
+\resizebox{1.0\columnwidth}{!}{ 
+\begin{tikzpicture}
+\showTheGrid{0}
+% The bar with a final arrow
+\shade[rounded corners=0cm, top color=color1!20,bottom color=color1!80] (0,5) -- (0,5.80) -- (19.5,5.80) -- (21,5.45) -- (21,5.35) -- (19.5,5.00);
+
+% The nodes from 2006 to 2015
+\draw (1,5.40) node[circle,fill=secondary!30!white,draw]{2006};
+\draw (3,5.40) node[circle,fill=secondary!30!white,draw]{2007};
+\draw (5,5.40) node[circle,fill=secondary!30!white,draw]{2008};
+\draw (7,5.40) node[circle,fill=secondary!30!white,draw]{2009};
+\draw (9,5.40) node[circle,fill=secondary!30!white,draw]{2010};
+\draw (11,5.40) node[circle,fill=secondary!30!white,draw]{2011};
+\draw (13,5.40) node[circle,fill=secondary!30!white,draw]{2012};
+\draw (15,5.40) node[circle,fill=secondary!30!white,draw]{2013};
+\draw (17,5.40) node[circle,fill=secondary!30!white,draw]{2014};
+\draw (19,5.40) node[circle,fill=secondary!30!white,draw]{2015};
+
+
+% Education
+%
+\node [above right, color1] at (0,9.40){\Large \educationTitle};
+
+\filldraw[educationBar] (0,6.20) rectangle (9.66,6.40);
+\node[educationText] at (4.8,6.20){\schoolTitle};
+
+\filldraw[educationBar] (10.55,6.20) rectangle (20.00,6.40);
+\node[educationText] at (15.28,6.20){\professionalTitle};
+
+\filldraw[educationBar] (15,7.60) rectangle (16.5,7.80);
+\node[educationText] at (15.75,7.60){\sabbaticalTitle};
+
+
+% Work Experience
+%
+\node [right, color1] at (0,0.4){\Large \worksTitle};
+
+\filldraw[experienceBar] (2,4.40) rectangle (12.50,4.60);
+\filldraw[experienceBar] (16.50,4.40) rectangle (17.75,4.60);
+\node[experienceText] at (9.875,4.60)%
+{\workTitleA};
+
+\filldraw[experienceBar] (10.50,3.20) rectangle (14.50,3.40);
+\node[experienceText] at (12.5,3.40)%
+{\workTitleB};
+
+\filldraw[experienceBar] (18.00,2.20) rectangle (19,2.40);
+\filldraw[experienceBar] (20.6,2.20) rectangle (21,2.40);
+\node[experienceText] at (17.5,2.20)%
+{\workTitleC};
+\end{tikzpicture}
+}
+\end{minipage}
+%----------------------------------------------------------------------------------------
+
+\vspace{15pt}
+
+%----------------------------------------------------------------------------------------
+%	SKILLS' MINDMAP
+%----------------------------------------------------------------------------------------
+
+\begin{minipage}{1.0\columnwidth}
+  \centering
+  
+%\resizebox{0.5\columnwidth}{10cm}{
+\resizebox{1.0\columnwidth}{!}{
+
+\begin{tikzpicture}[mindmap, grow cyclic, every node/.style=concept, concept color=secondary!30, 
+    level 1/.append style={level distance=3.0cm, clockwise from=135, sibling angle=90}]
+    
+\node [scale=0.60, text badly centered, anchor=center] {\mindmapTitle}
+        child [concept color=color1!40] { node [scale=0.95] (mindmapA) {\mindmapTitleA}}
+        child [concept color=color1!40] { node [scale=0.95] (mindmapB) {\mindmapTitleB}}
+        child [concept color=color1!40] { node [scale=0.95] (mindmapC) {\mindmapTitleC}}
+        child [concept color=color1!40] { node [scale=0.95] (mindmapD) {\mindmapTitleD}};
+
+\node [annotation,left] at (mindmapA.north west) {\mindmapAitemA};
+\node [annotation,left] at (mindmapA.west) {\mindmapAitemB};
+\node [annotation,left] at (mindmapA.south west) {\mindmapAitemC};
+
+\node [annotation,right] at (mindmapB.north east) {\mindmapBitemA};
+\node [annotation,right] at (mindmapB.east) {\mindmapBitemB};
+\node [annotation,right] at (mindmapB.south east) {\mindmapBitemC};
+
+\node [annotation,right] at (mindmapC.north east) {\mindmapCitemA};
+\node [annotation,right] at (mindmapC.east) {\mindmapCitemB};
+\node [annotation,right] at (mindmapC.south east) {\mindmapCitemC};
+        
+\node [annotation,left] at (mindmapD.north west) {\mindmapDitemA};
+\node [annotation,left] at (mindmapD.west) {\mindmapDitemB};
+\node [annotation,left] at (mindmapD.south west) {\mindmapDitemC};
+
+%    child [concept color=color1!40, grow=east] { node {Thesis Series}
+%        child { node {Basic Structure}}
+%        child { node {Page Layout}}
+%        child { node {Figures, Subfigures and Tables}}
+%    };
+
+\end{tikzpicture}
+
+}
+\end{minipage}
+
+%----------------------------------------------------------------------------------------
+
+\vspace{20pt}
+
+%----------------------------------------------------------------------------------------
+% PRIVACY, DATE AND SIGN
+%----------------------------------------------------------------------------------------
+
+\begin{it}
+Autorizzo il trattamento dei miei dati personali ai sensi del D.Lgs. $196/2003$.
+
+\vspace{15pt}
+\end{it}
+
+%\hspace{90pt}
+Villadose -- \today
+
+\vspace{10pt}
+
+%\hspace{70pt}
+\textsc{Nicola Rainiero}
+
+\end{document}

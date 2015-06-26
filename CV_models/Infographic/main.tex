@@ -1,3 +1,4 @@
+%\title{Template for an infographic CV using LaTeX and TikZ}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % LaTeX Template: Designer's CV
 %
@@ -11,6 +12,12 @@
 % Modified by Lim Lian Tze to support multiple pages using fix provided at
 % http://www.howtotex.com/templates/creating-a-designers-cv-in-latex/
 % Date: November 2014
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% 				Modified by Nicola Rainiero
+%				http://rainnic.altervista.org/tag/latex
+%				------------------------------------------
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % How to use overleaf: 
@@ -29,7 +36,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % "ModernCV" CV and Cover Letter
 % LaTeX Template
 % Version 1.1 (9/12/12)
@@ -47,7 +54,7 @@
 % directory as this .tex file. These files provide the resume style and themes 
 % used for structuring the document.
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
@@ -70,10 +77,10 @@
 \usepackage{scalefnt}
 
 %
-% specialfont requires the XeteX compiler
+% WARNING: specialfont requires the XeteX compiler (not available in Overleaf)
 % if you do not want to insert Skype & Linkedin item change in \excludecomment
 %
-\includecomment{specialfont}
+\excludecomment{specialfont}
 
 %
 % Package and instruction to have Skype and Linkedin logo
@@ -90,6 +97,7 @@
 %
 \usepackage[margin=10pt,font=small,labelfont=bf]{caption}
 % Source: http://www.latex-community.org/forum/viewtopic.php?f=4&t=14668
+
 %
 % TikZ: styles and functions
 % 
@@ -125,19 +133,61 @@
 		}
 %----------------------------------------------------------------------------------------
 
+%----------------------------------------------------------------------------------------
+% SELECTOR FOR LANGUAGE OR SPECIFIC TARGETED CV
+%----------------------------------------------------------------------------------------
+% excludecomment means OFF
+% includecomment means ON
+\excludecomment{it} % Italian language
+\includecomment{en} % English language
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CONTACT INFORMATION SECTION
+%----------------------------------------------------------------------------------------
+
+\firstname{Nicola} % Your first name
+\familyname{Rainiero} % Your last name
+
+% All information in this block is optional, comment out any lines you don't need
+\title{\titleText}
+\begin{it}
+\address{Via Tal dei Tali 25}{CAP, Citt\`a (PROVINCIA)}
+\phone{$+39\,\#\#\#\#\,\#\#\#\#\#$}
+\fax{$+39\,\#\#\#\#\,\#\#\#\#\#$}
+\mobile{$+39\,\#\#\#\,\#\#\#\#\#\#\#$}
+\end{it}
+\begin{en}
+\address{25 Street Name}{Postcode, City (District) -- Country}
+\mobile{$+44\,(0)\#\#\#\#\,\#\#\#\#\#\#$}
+\phone{$+44\,(0)\#\#\#\#\,\#\#\#\#\#\#$}
+\fax{$+44\,(0)\#\#\#\#\,\#\#\#\#\#\#$}
+\end{en}
+
+%
+% Skype and LinkedIN logo
+% 
+\begin{specialfont}
+\begin{it}
+\extrainfo{\faLinkedin~ \href{http://it.linkedin.com/in/nicolarainiero}{it.linkedin.com/in/nicolarainiero}\\\faSkype~ rainnico\\}
+\end{it}
+\begin{en}
+\extrainfo{\faLinkedin~ \href{http://it.linkedin.com/in/nicolarainiero/en}{it.linkedin.com/in/nicolarainiero}\\\faSkype~ rainnico\\}
+\end{en}
+\end{specialfont}
+%
+%
+\homepage{http://rainnic.altervista.org/}{rainnic.altervista.org}
+
+\photo[70pt][0.07pt]{profile} % The first bracket is the picture height, the second is the thickness of the frame around the picture (0pt for no frame)
 
 %----------------------------------------------------------------------------------------
 % Multilanguage custom data
+% For timeline and mindmap
 %----------------------------------------------------------------------------------------
-%
-% Activate Italian or English language:
-%
-\excludecomment{it}
-\includecomment{en}
 
 % Italian
 \begin{it}
-\usepackage[english]{babel} %english, UKenglish or italian
+\usepackage[italian]{babel} %english, UKenglish or italian
 \newcommand\titleText{Curriculum Vitae}
 \newcommand\quoteText{Working from scratch, following simplicity}
 \newcommand\quoteExtended{Poter applicare e migliorare le mie abilit\`a tecniche\\nella programmazione scientifica e nello sviluppo di siti web}
@@ -225,48 +275,6 @@
 \newcommand\mindmapDitemB{Octave, NVivo, R and IPhyton for quantitative and qualitative analysis}
 \newcommand\mindmapDitemC{AutoCAD and Blender for 2D and 3D design}
 \end{en}
-
-%----------------------------------------------------------------------------------------
-
-
-%----------------------------------------------------------------------------------------
-%	NAME AND CONTACT INFORMATION SECTION
-%----------------------------------------------------------------------------------------
-
-\firstname{Nicola} % Your first name
-\familyname{Rainiero} % Your last name
-
-% All information in this block is optional, comment out any lines you don't need
-\title{\titleText}
-\begin{it}
-\address{Via Tal dei Tali 25}{CAP, Citt\`a (PROVINCIA)}
-\phone{$+39\,\#\#\#\#\,\#\#\#\#\#$}
-\fax{$+39\,\#\#\#\#\,\#\#\#\#\#$}
-\mobile{$+39\,\#\#\#\,\#\#\#\#\#\#\#$}
-\end{it}
-\begin{en}
-\address{25 Street Name}{Postcode, City (District) -- Country}
-\mobile{$+44\,(0)\#\#\#\#\,\#\#\#\#\#\#$}
-\phone{$+44\,(0)\#\#\#\#\,\#\#\#\#\#\#$}
-\fax{$+44\,(0)\#\#\#\#\,\#\#\#\#\#\#$}
-\end{en}
-
-%
-% Skype and LinkedIN logo
-% 
-\begin{specialfont}
-\begin{it}
-\extrainfo{\faLinkedin~ \href{http://it.linkedin.com/in/nicolarainiero}{it.linkedin.com/in/nicolarainiero}\\\faSkype~ rainnico\\}
-\end{it}
-\begin{en}
-\extrainfo{\faLinkedin~ \href{http://it.linkedin.com/in/nicolarainiero/en}{it.linkedin.com/in/nicolarainiero}\\\faSkype~ rainnico\\}
-\end{en}
-\end{specialfont}
-%
-%
-\homepage{http://rainnic.altervista.org/}{rainnic.altervista.org}
-
-\photo[70pt][0.07pt]{profile} % The first bracket is the picture height, the second is the thickness of the frame around the picture (0pt for no frame)
 
 %----------------------------------------------------------------------------------------
 \quote{\quoteText}
@@ -397,7 +405,7 @@
 \begin{it}
 Autorizzo il trattamento dei miei dati personali ai sensi del D.Lgs. $196/2003$.
 
-\vspace{15pt}
+\vspace{5pt}
 \end{it}
 
 %\hspace{90pt}

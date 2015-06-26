@@ -4,6 +4,7 @@
 *.aux
 *.gz
 *.pdf
+*.swp
 
 # but do track the following files, even though you're ignoring .pdf files above
 !splitted-pdf.pdf

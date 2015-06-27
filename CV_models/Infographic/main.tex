@@ -1,17 +1,21 @@
 %\title{Template for an infographic CV using LaTeX and TikZ}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% LaTeX Template: Designer's CV
+% "ModernCV" CV and Cover Letter
+% LaTeX Template
+% Version 1.1 (9/12/12)
 %
-% Source: http://www.howtotex.com
-% 
-% Feel free to distribute this example, but please keep the referral
-% to HowToTeX.com
-% 
-% Date: March 2012
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
 %
-% Modified by Lim Lian Tze to support multiple pages using fix provided at
-% http://www.howtotex.com/templates/creating-a-designers-cv-in-latex/
-% Date: November 2014
+% Original author:
+% Xavier Danaux (xdanaux@gmail.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0%
+% Important note:
+% This template requires the moderncv.cls and .sty files to be in the same 
+% directory as this .tex file. These files provide the resume style and themes 
+% used for structuring the document.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -36,33 +40,13 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% "ModernCV" CV and Cover Letter
-% LaTeX Template
-% Version 1.1 (9/12/12)
-%
-% This template has been downloaded from:
-% http://www.LaTeXTemplates.com
-%
-% Original author:
-% Xavier Danaux (xdanaux@gmail.com)
-%
-% License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0%
-% Important note:
-% This template requires the moderncv.cls and .sty files to be in the same 
-% directory as this .tex file. These files provide the resume style and themes 
-% used for structuring the document.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
 \documentclass[11pt,a4paper,sans]{moderncv} % Font sizes: 10, 11, or 12; paper sizes: a4paper, letterpaper, a5paper, legalpaper, executivepaper or landscape; font families: sans or roman
 
-\moderncvstyle{classic} % CV theme - options include: 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvstyle{classic} % CV theme - options include: 'casual', 'classic' and 'banking'
 \moderncvcolor{blue} % CV color - options include: 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
 \usepackage{xcolor}
 \colorlet{secondary}{color1!25!color2} % Header and Curriculum Vitae
@@ -70,7 +54,7 @@
 
 \usepackage[scale=0.9]{geometry} % Reduce document margins
 %\setlength{\hintscolumnwidth}{3cm} % Uncomment to change the width of the dates column
-\setlength{\makecvtitlenamewidth}{10cm} % For the 'classic' style, uncomment to adjust the width of the space allocated to your name
+%\setlength{\makecvtitlenamewidth}{10cm} % For the 'classic' style, uncomment to adjust the width of the space allocated to your name
 
 \usepackage{eurosym}
 \usepackage{comment}
@@ -138,8 +122,8 @@
 %----------------------------------------------------------------------------------------
 % excludecomment means OFF
 % includecomment means ON
-\excludecomment{it} % Italian language
-\includecomment{en} % English language
+\includecomment{en} % Italian language
+\excludecomment{it} % English language
 
 %----------------------------------------------------------------------------------------
 %	NAME AND CONTACT INFORMATION SECTION
@@ -181,8 +165,7 @@
 \photo[70pt][0.07pt]{profile} % The first bracket is the picture height, the second is the thickness of the frame around the picture (0pt for no frame)
 
 %----------------------------------------------------------------------------------------
-% Multilanguage custom data
-% For timeline and mindmap
+% MULTILANGUAGE CUSTOM DATA - FOR TIMELINE AND MINDMAP
 %----------------------------------------------------------------------------------------
 
 % Italian

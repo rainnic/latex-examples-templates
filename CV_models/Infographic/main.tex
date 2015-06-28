@@ -61,26 +61,19 @@
 \usepackage{scalefnt}
 
 %
-% WARNING: specialfont requires the XeteX compiler (not available in Overleaf)
-% if you do not want to insert Skype & Linkedin item change in \excludecomment
-%
-\excludecomment{specialfont}
-
-%
 % Package and instruction to have Skype and Linkedin logo
-% WARINING: fontawesome is based on fontspec
-% that requires either XeTeX or LuaTeX to function
+% WARNING: fontawesome is based on fontspec that requires either XeTeX or LuaTeX to function
+% It doesn't work in Overleaf
 %
+% If you want to insert Skype & Linkedin item change in \includecomment
+\excludecomment{specialfont}
 \begin{specialfont}
 \usepackage{fontawesome}
 \newfontfamily{\FA}{FontAwesome}
 \newcommand\faSkype{{\FA\symbol{"F17E}}}
 \end{specialfont}
-%
 % skype logo
-%
 \usepackage[margin=10pt,font=small,labelfont=bf]{caption}
-% Source: http://www.latex-community.org/forum/viewtopic.php?f=4&t=14668
 
 %
 % TikZ: styles and functions
@@ -93,11 +86,11 @@
 \tikzstyle{experienceBar} = [rounded corners=1mm,fill=color1!40!white, draw=white]
 \tikzstyle{experienceText} = [rectangle, below=.1cm, align=center, font=\sffamily,scale=1.00]
 
-%%
-%% Function to call the grid
-%% Usage:
-%% \showTheGrid{1} TRUN ON
-%% \showTheGrid{0} TRUN OFF
+
+% Function to hide/unhide the grid
+% Usage:
+% \showTheGrid{1} TRUN ON
+% \showTheGrid{0} TRUN OFF
 \newcommand{\aspectW}{21}
 \newcommand{\aspectH}{10}
 \newcommand{\showTheGrid}[1]{
@@ -128,7 +121,6 @@
 %----------------------------------------------------------------------------------------
 %	NAME AND CONTACT INFORMATION SECTION
 %----------------------------------------------------------------------------------------
-
 \firstname{Nicola} % Your first name
 \familyname{Rainiero} % Your last name
 
@@ -158,8 +150,7 @@
 \extrainfo{\faLinkedin~ \href{http://it.linkedin.com/in/nicolarainiero/en}{it.linkedin.com/in/nicolarainiero}\\\faSkype~ rainnico\\}
 \end{en}
 \end{specialfont}
-%
-%
+
 \homepage{http://rainnic.altervista.org/}{rainnic.altervista.org}
 
 \photo[70pt][0.07pt]{profile} % The first bracket is the picture height, the second is the thickness of the frame around the picture (0pt for no frame)
@@ -168,30 +159,26 @@
 % MULTILANGUAGE CUSTOM DATA - FOR TIMELINE AND MINDMAP
 %----------------------------------------------------------------------------------------
 
+%
 % Italian
+%
 \begin{it}
 \usepackage[italian]{babel} %english, UKenglish or italian
 \newcommand\titleText{Curriculum Vitae}
 \newcommand\quoteText{Working from scratch, following simplicity}
 \newcommand\quoteExtended{Poter applicare e migliorare le mie abilit\`a tecniche\\nella programmazione scientifica e nello sviluppo di siti web}
-%
+
 % TIMELINE
-%
-\newcommand\educationTitle{Istruzione e formazione}
-%
+\newcommand\educationTitle{Istruzione e formazione} % Title in the top left
 \newcommand\schoolTitle{Diploma di Laurea in Ingegneria Civile\\indirizzo geotecnico -- Universit\`a di Padova}
 \newcommand\professionalTitle{Abilitazione alla professione d'ingegnere\\iscrizione presso l'Ordine di Rovigo}
 \newcommand\sabbaticalTitle{Vacanza studio e cameriere occasionale ad Eastbourne (UK)\\sostenuto un corso d'inglese}
-%
-\newcommand\worksTitle{Esperienze professionali}
-%
+\newcommand\worksTitle{Esperienze professionali} % Title in the bottom left
 \newcommand\workTitleA{Addetto controllo accessi, cassiere e caposervizio\\Coopgress - Verona $83$, presso \emph{PadovaFiere SpA}}
 \newcommand\workTitleB{Ingegnere civile freelance\\Societ\`a professionale \emph{Project SCARL}, Rovigo}
 \newcommand\workTitleC{Progetto REGEOCITIES e collaborazione\\Scuola Sant'Anna e ERGO SRL, Pisa}
-%
 % MINDMAP
 \newcommand\mindmapTitle{\textsc{\huge abilit\`a\\acquisite}}
-%
 % FIRST MAP (IN THE TOP LEFT)
 \newcommand\mindmapTitleA{\small \textsc{competenze\\maturate}}
 \newcommand\mindmapAitemA{Responsabile quartiere fieristico con idoneit\`a antincendio a rischio elevato}
@@ -213,30 +200,28 @@
 \newcommand\mindmapDitemB{Octave, NVivo e R per l'analisi qualitativa e quantitativa di dati}
 \newcommand\mindmapDitemC{AutoCAD e Blender per la rappresentazione architettonica}
 \end{it}
+
+%
 % English
+%
 \begin{en}
 \usepackage[english]{babel} %english, UKenglish or italian
 \newcommand\titleText{Curriculum Vitae} % or R\'esum\'e
 \newcommand\quoteText{Working from scratch, following simplicity}
 \newcommand\quoteExtended{To obtain a position that would enable me to enlarge my skills\\ in scientific programming, IT and web applications}
-%
+
 % TIMELINE
-%
-\newcommand\educationTitle{Education and Training}
-%
+\newcommand\educationTitle{Education and Training} % Title in the top left
 \newcommand\schoolTitle{Postgraduate in Civil Engineering\\Geotechnical Field -- Universit\`a di Padova}
 \newcommand\professionalTitle{Professional Engineer\\enrolled at Rovigo Association of Engineers}
 \newcommand\sabbaticalTitle{Study trip \& occasional waiter in Eastbourne (UK)\\achieved an English Course}
-%
-\newcommand\worksTitle{Work experience}
-%
+
+\newcommand\worksTitle{Work experience} % Title in the bottom left
 \newcommand\workTitleA{Steward, cashier and wakeful\\Coopgress - Verona $83$, Padova}
 \newcommand\workTitleB{Freelance Civil Engineer\\Project SCARL, Rovigo}
 \newcommand\workTitleC{Internship \& Collaboration\\Scuola Sant'Anna \& ERGO SRL, Pisa}
-%
 % MINDMAP
 \newcommand\mindmapTitle{\textsc{\LARGE knowledge \& expertise}}
-%
 % FIRST MAP (IN THE TOP LEFT)
 \newcommand\mindmapTitleA{\small \textsc{goals\\achieved}}
 \newcommand\mindmapAitemA{Designed and developed Forex panels for the exhibition stand}

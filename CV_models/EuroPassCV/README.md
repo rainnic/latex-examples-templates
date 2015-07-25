@@ -14,4 +14,4 @@ git clone https://github.com/rainnic/latex-examples-templates.git
 This is a derived work under the terms of the LaTeX project public license (LPPL). It is based on version 2015-03-10 of europecv.cls which is part of the europecv package by Nicola Vitacolonna. A copy of europecv, including the unmodified version of europecv.cls is available from http://www.ctan.org/tex-archive/macros/latex/contrib/europecv.
 
 ## Known issues
-* For now only English, German and Italian are fully translated. Any contribution is welcome.
+* For now only English and Italian are fully translated ant tested.

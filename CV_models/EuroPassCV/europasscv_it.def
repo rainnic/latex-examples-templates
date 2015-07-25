@@ -10,7 +10,7 @@
 \def\ecv@mobilekey{\ecv@utf{Cellulare}}
 \def\ecv@faxkey{\ecv@utf{Fax}}
 \def\ecv@emailkey{\ecv@utf{E-mail}}
-\def\ecv@nationalitykey{\ecv@utf{Nazionalit\`a}}
+\def\ecv@nationalitykey{\ecv@utf{Nazionalit\`{a}}}
 \def\ecv@birthkey{\ecv@utf{Data di nascita}}
 \def\ecv@genderkey{\ecv@utf{Sesso}}
 % Footer

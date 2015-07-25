@@ -1,8 +1,13 @@
 %!TEX encoding = UTF-8 Unicode
 %
 % Europass curriculum vitae class
-% Author: Giacomo Mazzamuto
-% based on the europecv class by Nicola Vitacolonna (http://ctan.org/pkg/europecv)
+% Author: Nicola Rainiero
+% http://rainnic.altervista.org/tag/latex
+%
+% based on the europecv class by:
+% Nicola Vitacolonna (http://ctan.org/pkg/europecv)
+% Giacomo Mazzamuto (http://www.ctan.org/pkg/europasscv)
+% Roberto Leinardi (https://github.com/leinardi/europecv2013)
 
 % This material is subject to the LaTeX Project Public License Version 1.3.
 % See  http://www.latex-project.org/lppl.txt

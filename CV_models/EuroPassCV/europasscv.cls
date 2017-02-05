@@ -854,6 +854,36 @@
 \newcommand*\ecvCTwo{C2}
 
 \def\ecv@kern{\kern0.5pt}
+% Digital competences
+\def\ecv@dccol{0.2}
+\newcommand*\ecvdigitalcompetence[5]{%
+	%header
+	\setlength{\arrayrulewidth}{\ecv@langouterborderwidth}
+	\ecvblueitem{\ecv@digitalcompetenceskey}{
+		\renewcommand{\arraystretch}{1.5}
+		\setlength{\ecv@langtablewidth}{\ecv@rightcolwidth}
+		\addtolength{\ecv@langtablewidth}{-4\arrayrulewidth}
+		\arrayrulecolor{ecvtablebordercolor}
+		\begin{tabular}[t]{m{\ecv@dccol\ecv@langtablewidth}|m{\ecv@dccol\ecv@langtablewidth}|m{\ecv@dccol\ecv@langtablewidth}|m{\ecv@dccol\ecv@langtablewidth}|m{\ecv@dccol\ecv@langtablewidth}}
+			\firsthline
+			\multicolumn{5}{c}{\ecvsectionstyle{\ecv@assesskey}} \tabularnewline
+			\hline
+			\centering \ecvbluestyle{\ecv@informationprocessingkey}& \centering \ecvbluestyle{\ecv@contentcreationkey} &\centering \ecvbluestyle{\ecv@communicationkey}& \centering \ecvbluestyle{\ecv@problensolvingkey}& \centering \ecvbluestyle{\ecv@safetykey} \tabularnewline
+			\hline
+			\centering{#1} &\centering{#2} &\centering{#3} &\centering{#4} &\centering{#5} \tabularnewline
+			\hline
+		\end{tabular}
+	}
+	
+	%footer
+	\nopagebreak[4]
+	\ecvitem[0.5\dp\strutbox]{}{\footnotesize \setulcolor{ecvlanglinkcolor}\setul{.5pt}{.4pt}\href{\ecv@digcomplinkkey}{\ul{\mbox{\textcolor{ecvlanglinkcolor}{\ecv@digcompfooterkey}}}}}
+	\renewcommand{\arraystretch}{0}
+}
+
+\newcommand*\ecvBasic{\ecv@dcbasickey}
+\newcommand*\ecvIndependent{\ecv@dcindepkey}
+\newcommand*\ecvProficient{\ecv@dcprofkey}\def\ecv@kern{\kern0.5pt}
 %\def\ecv@kern{}
 \newcommand*{\ecvTitleKern}[1]{\def\ecv@kern{\kern#1}}
 \newlength\ecv@rulewidth

@@ -3,7 +3,7 @@
 *.cut
 *.aux
 *.gz
-*.pdf
+# *.pdf
 *.swp
 
 # but do track the following files, even though you're ignoring .pdf files above

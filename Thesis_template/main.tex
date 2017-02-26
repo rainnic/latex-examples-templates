@@ -1,0 +1,142 @@
+%\title{Template for a Thesis}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PREAMBLE OF THE DOCUMENT %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% 				         Edited by Nicola Rainiero
+%				         http://rainnic.altervista.org/tag/latex
+%			       	     ---------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% book - Default class for a normal book
+\documentclass[a4paper,10pt,twoside,openright,reqno,table]{book}
+
+% extbook - a class for text bigger than 12pt
+%\documentclass[a4paper,14pt,twoside,openright,reqno,table]{extbook}
+
+% Options in detail:
+% openany - allows chapter and similar openings to occur on left hand pages
+% openright - allows chapter and similar openings to occur on right hand pages
+% fleqn  - left-alignment of formulas
+% leqno - labels formulas on the left-hand side instead of right
+% reqno - labels formulas on the right-hand side
+% draft - in draft mode the figures are not loaded, useful for speeding up typesetting
+% onecolumn or twocolumn
+% oneside (default for article and report)
+% twoside (default for book)
+% table  --> to avoid the message: package xcolor has already been loaded ...
+
+\usepackage{packages}
+% Almost all the settings are defined in packages.sty
+
+% Put a grey textual watermark on document pages (PS mode only)
+%\usepackage[italian,light,first,bottomafter]{draftcopy}
+
+% Put a grey textual watermark on document pages (PDF mode)
+\usepackage{draftwatermark}
+% If you want to change the default DRAFT text
+%\SetWatermarkText{DRAFT}
+% If you want to change the default grey color of the text
+%\SetWatermarkColor{red}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   DOCUMENT: an ordered list of files    %
+%             that you can include or not %
+%             in your document            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% FRONTISPIECE %
+\include{frontmatter/frontispiece}
+
+%% FRONTMATTER %%
+% The pages inside of frontmatter are in Roman numerals and the chapters will not have numeration
+\frontmatter
+
+% CREDITS %
+\include{frontmatter/credits}
+
+% ABSTRACT %
+\include{frontmatter/abstract}
+
+% TOCs %
+\include{frontmatter/tocs}
+
+% GLOSSARY
+\include{frontmatter/glossary}
+% In order to update the glossary you have to execute:
+% makeindex -s main.ist -t main.alg -o main.acr main.acn
+% to insert an item in the document:
+% \newglossaryentry{item_label}{name={item}, description={description}}
+% if it doesn't appear you have to initialize it:
+% \glsadd{item_label}
+% or if it is called again in the following text:
+% \gls{item_label}
+
+% SYMBOLS %
+\include{frontmatter/symbols}
+% In order to update the symbols you have to execute:
+% makeindex -s main.ist -t main.glg -o main.gls main.glo
+% to insert an item in the document::
+% \newacronym{item_label}{name={item}, description={description}}
+% if it doesn't appear you have to initialize it:
+% \glsadd{item_label}
+% or if it is called again in the following text:
+% \gls{item_label}
+
+%% MAINMATTER %%
+% The pages inside of mainmatter are in Arabic numerals and the chapters will have numeration
+\mainmatter
+
+\part{Studio iniziale}
+\include{introduction/introduction}
+%\include{chapter1/chapter1}
+%\include{chapter2/chapter2}
+%\include{chapter3/chapter3}
+%\include{chapter4/chapter4}
+\part{Impatto ambientale}
+%\include{chapter5/chapter5}
+%\include{chapter6/chapter6}
+%\include{chapter7/chapter7}
+\part{Linee guida}
+\include{chapter8/chapter8}
+
+% APPENDICES
+%\appendix
+%\include{appendix1/appendix1}
+%\include{appendix2/appendix2}
+
+%% BACKMATTER %%
+% The pages inside of backmatter are in Arabic numerals and the chapters will not have numeration
+\backmatter
+
+% BIBLIOGRAPHY WITH BIBTEX %
+\include{backmatter/bibliography}
+% All the sources are described in a file named bibliography.bib
+% if you want to cite one in the text:
+% \citep{label}
+% In order to update the bibliography you have to execute:
+% bibtex main (without ".tex")
+
+% INDEX %
+\include{backmatter/index}
+% To add an item in it, write the \index{WORD} after the word to highlight:
+% WORD\index{WORD}
+% In order to update the Index you have to execute:
+% makeindex main (without ".tex")
+
+% A typical session involving a bibliography, an index and son on would require:
+% pdflatex main
+% makeindex -s main.ist -t main.alg -o main.acr main.acn
+% makeindex -s main.ist -t main.glg -o main.gls main.glo
+% bibtex main
+% pdflatex main
+% pdflatex main
+% makeindex main
+% makeindex -s main.ist -t main.alg -o main.acr main.acn
+% makeindex -s main.ist -t main.glg -o main.gls main.glo
+% pdflatex main
+% pdflatex main
+\end{document}

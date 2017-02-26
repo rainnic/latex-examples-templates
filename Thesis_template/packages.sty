@@ -1,0 +1,252 @@
+% If you want to write in two or more languages, you have to instruct babel with:
+% \usepackage[secoundary_language,main_language]{babel} 
+\usepackage[english,italian]{babel}
+
+% To change the default label for chapter in Esercitazione
+%\addto\captionsitalian{\renewcommand{\chaptername}{Esercitazione}}
+
+%
+% ENCODING
+%
+% In order to enable the accent marks
+\usepackage[utf8]{inputenc}
+% To enable the hyphenation for languages with accented characters
+\usepackage[T1]{fontenc}
+% Alternatively the accent marks can be written with "cos\'{i}"
+
+% To enable the euro character with the command "\euro"
+\usepackage{eurosym}
+
+%
+% INDICES
+%
+% To enable and print the Analytical Index
+% I didn't use it because it would have been too heavy
+\usepackage{makeidx}
+\makeindex
+
+% To enable and print the glossary and index of symbols
+\usepackage[acronym]{glossaries}
+\makeglossaries
+
+%
+% BIBLIOGRAPHY
+%
+% To enable the bibliography
+\usepackage[square,sort]{natbib}
+
+% To highlight the exact page where the citation was done
+\usepackage[hyperpageref]{backref}
+\renewcommand{\backref}[1]{}
+\renewcommand*{\backreftwosep}{ e~}
+\renewcommand*{\backreflastsep}{ e~}
+\renewcommand*{\backrefalt}[4]{%
+   \ifcase #1 %
+      \relax%
+   \or
+      (Cited at page~#2)%
+   \else
+      (Cited at pages~#2)
+   \fi}
+
+
+%
+% MATHS
+%
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% To link the numeration of formulas with the own sections
+\numberwithin{equation}{section}
+
+% To split equation in multiple lines
+%\usepackage{split}
+
+% To print numbers with a separator every three digits and converts numbers given as
+% \np{1000} --> 1 000
+\usepackage{numprint}
+
+% In order to use $\numprint[\textcelsius]{20}$ --> 20°C
+\usepackage{mathcomp}
+% Or 20 \celsius --> 20°C
+\usepackage{gensymb}
+
+% In order to use $\ud{u}$ --> dx
+\newcommand{\ud}{\mathop{}\ \mathrm{d}}
+
+% I order to define the absolute value
+% You have first to load mathtools
+\usepackage{mathtools}
+% And then:
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+
+%
+% IMAGES and TikZ
+%
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations}
+\usetikzlibrary{backgrounds}
+
+% Folders with high quality pictures
+\graphicspath{{frontmatter/images/},{chapter1/images/},{chapter8/images/}}
+
+% Otherwise a folder with poor quality
+%\graphicspath{{immagini_x_riduzione/}}
+
+% wrapfig --> Allows figures or tables to have text wrapped around them
+%
+% Usage:
+% \begin{wrapfloat}{POSITION}{WIDTH} OBJECT \end{wrapfloat}
+% OBJECT can be figure or table
+% POSITION: 	r,R   the right side of the text
+%               l,L   the left side of the text
+%			    i,I   the inside edge–near the binding
+%               o,O   the outside edge–far from the binding
+% WIDTH of the object
+\usepackage{wrapfig}
+
+%
+% TABLES
+%
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[font=small,format=hang,labelfont={sf,bf}]{caption}
+\captionsetup[table]{position=top}
+
+% To improve the table readability
+\usepackage{colortbl}
+
+% To highlight the table rows
+\newcolumntype{G}{>{\columncolor[gray]{0.8}}c} 
+\usepackage{xcolor} 
+
+% To rotate the tables
+\usepackage{rotating}
+
+% To have more cells per row
+\usepackage{multirow}
+
+% To enable the justify in the tables
+\usepackage{tabularx}
+
+%
+% GENERAL SETTINGS
+%
+% To improve the font
+\usepackage{mathpazo}
+\usepackage[scaled=0.95]{helvet}
+\usepackage{courier}
+
+% To customize page layout
+\usepackage[a4paper,top=3.0cm,bottom=2.5cm,left=2.0cm,right=2.0cm,%
+bindingoffset=15mm,marginpar=1.5cm,reversemp]{geometry}
+
+% For the title page of the document (frontispiece.tex)
+% To change the page layout in the middle of a document
+\usepackage{chngpage}
+% used to place the output at fixed positions
+\usepackage{eso-pic}
+% definition of a new command to center an image in the middle of a page
+\newcommand \InMiddlePage [1]{ %
+\AddToShipoutPicture *{\AtPageCenter {%
+\makebox (0 ,100){\includegraphics %
+[ width =0.6\paperwidth ]{#1}}}}}
+
+% New environment for inserting the abstract
+\newenvironment{abstract} %
+{
+			\null \vfill \begin{center} %
+\bfseries \abstractname \end{center} %
+} %
+{\vfill \null }
+
+% New environment for inserting the preambles in every chapter
+\newenvironment{preamble}
+	{\begin{quotation}\footnotesize}
+	{\end{quotation}}
+
+% New environment for inserting the laws
+\newenvironment{law}
+	{\begin{quote} \begin{itshape}}
+	{\end{itshape} \end{quote}}
+
+% In order to have page totally blank if you have activated openright
+\makeatletter
+\def\cleardoublepage{\clearpage
+\if@twoside
+\ifodd\c@page
+\else
+\null\thispagestyle{empty}\clearpage
+\fi
+\fi}
+\makeatother
+
+% To provide extensive facilities, both for constructing headers and footers, and for controlling their use
+\usepackage{fancyhdr}
+\pagestyle{fancy} 
+% Style used for my exercitations at University
+%\fancyhead[LO,RE]{\slshape \rightmark}
+%\fancyhead[LE,RO]{\bfseries \leftmark}
+%\fancyfoot[LE,RO]{\bfseries \thepage}
+%\fancyfoot[CE,CO]{}
+%\fancyfoot[LO,RE]{\slshape Nicola Rainiero, 421449/ICG}
+%\renewcommand{\footrulewidth}{0.4pt}
+% Style used for my thesis
+\fancyhead[LE,RO]{\bfseries \thepage}
+\fancyhead[LO]{\slshape \rightmark}
+\fancyhead[RE]{\bfseries \leftmark}
+\fancyfoot[CE,CO]{}
+\renewcommand{\footrulewidth}{0.0pt}
+% In both styles:
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter\ $\:-\:$ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\S \thesection\ $\,-\,$ #1}}
+
+% The style used for the first page of every chapter
+% Others are: Lenny, Rejne, Conny, PetersLenny, Bjornstrup, Glenn, Bjarne, Sonny, Nicola
+\usepackage[Sonny]{fncychap}
+
+% To improve the references, used \vref instead \ref and \eqref for the equations
+\usepackage[italian]{varioref}
+
+% To avoid the indentation of the first paragraph under every title sections
+\usepackage{indentfirst}
+
+% Define the spread of lines
+% "2.0" is useful for reading better the drafts
+%\linespread{2.0}
+
+% To enhancing the appearance and readability of a document
+\usepackage{microtype}
+
+% In order to not insert extra space at the end of sentences
+\frenchspacing
+
+% To be able to insert ordered lists with letters or Roman numbers
+% example: \begin{enumerate}[a.] ... \end{enumerate}
+\usepackage{enumerate}
+
+% To selectively include/exclude portions of text
+\usepackage{comment}
+
+% To produce hypertext links in the document
+\usepackage[colorlinks,hyperindex,pagebackref]{hyperref}
+\hypersetup{
+			pdftitle={Aspetti legislativi e progettuali inerenti alla realizzazione degli impianti geotermici},
+			pdfsubject={Università di Padova, Facoltà di Ingegneria},
+			pdfauthor={Nicola Rainiero},
+			pdfkeywords={geotecnica, energia, geotermia, legge, sonde},
+%			 pdfpagemode=FullScreen, % To start in fullscreen mode automatically 
+			citecolor=black,
+			filecolor=black,
+			linkcolor=black,
+			urlcolor=black
+}
+
+% To provide support for the manipulation and reference of small or ‘sub’ figures
+% and tables within a single figure or table environment
+\usepackage{subfig}

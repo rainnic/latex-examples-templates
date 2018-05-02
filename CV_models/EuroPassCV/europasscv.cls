@@ -626,6 +626,7 @@
 %\newcommand*{\ecvtelephone}[2][]{\def\ecv@telephone{#2}\def\ecv@mobile{#1}}
 \newcommand*{\ecvfax}[1]{\def\ecv@fax{#1}}
 \newcommand*{\ecvemail}[1]{\def\ecv@email{#1}}
+\newcommand*{\ecvemailsecond}[1]{\def\ecv@emailsecond{#1}}
 \newcommand*{\ecvhomepage}[1]{\def\ecv@homepage{#1}}
 % MY CODE
 \newcommand*{\ecvtelephone}[1]{\def\ecv@telephone{#1}}
@@ -670,6 +671,7 @@
 \ecvtelephone{}
 \ecvfax{}
 \ecvemail{}
+\ecvemailsecond{}
 \ecvhomepage{}
 % MY CODE
 \ecvmobile{}
@@ -715,10 +717,17 @@
 \ifx\@empty\ecv@fax\else
     \ecv@faxkey \ecv@fax 
 \fi
-\ifx\@empty\ecv@email\else
-    %\raisebox{-2\lineskip}{\includegraphics[width=0.4cm]{mail_europass_icon.pdf}}\hspace{0.2mm} {\fontseries{m}\selectfont \setul{.5pt}{.4pt}\href{mailto:\ecv@email}{\ul{\mbox{\ecv@email}}}} \newline
+%\ifx\@empty\ecv@email\else
+%    \raisebox{-2\lineskip}\emailsymbol\enskip {\fontseries{m}\selectfont \setul{2pt}%{.4pt}\href{mailto:\ecv@email}{\ul{\mbox{\ecv@email}}}} \newline
+%\fi
+\ifx\@empty\ecv@email
+  \ifx\@empty\ecv@emailsecond\else
     \raisebox{-2\lineskip}\emailsymbol\enskip {\fontseries{m}\selectfont \setul{2pt}{.4pt}\href{mailto:\ecv@email}{\ul{\mbox{\ecv@email}}}} \newline
+  \fi
+\else
+    \raisebox{-2\lineskip}\emailsymbol\enskip {\fontseries{m}\selectfont \setul{2pt}{.4pt}\href{mailto:\ecv@email}{\ul{\mbox{\ecv@email}}}} \quad \ifx\@empty\ecv@emailsecond\newline\else  \raisebox{-2\lineskip}\emailsymbol\enskip {\fontseries{m}\selectfont \setul{2pt}{.4pt}\href{mailto:\ecv@emailsecond}{\ul{\mbox{\ecv@emailsecond}}}} \newline \fi
 \fi
+%
 \ifx\@empty\ecv@homepage\else
     %\raisebox{-2\lineskip}{\includegraphics[width=0.4cm]{website_europass_icon.pdf}}\hspace{0.2mm} {\fontseries{m}\selectfont \setul{.5pt}{.4pt}\href{\ecv@homepage}{\ul{\mbox{\ecv@homepage}}}} \newline
     \raisebox{-2\lineskip}\homepagesymbol\enskip {\fontseries{m}\selectfont \setul{2pt}{.4pt}\ul{\mbox{\ecv@homepage}}} \newline
@@ -909,6 +918,48 @@
 \newcommand*{\ecvExtraRowHeight}[1]{\setlength\ecv@extrarowheight{#1}}
 \newcommand*{\ecvNoHorRule}{\def\ecv@hrule{}}
 \newcommand*{\ecvWithHorRule}{\def\ecv@hrule{\cline{1-1}}}
+
+% University exam transcript
+\newcommand*\ecvexames[4]{%
+\def\ecv@fccol{0.25} % because I want 4 column
+	%header
+	\setlength{\arrayrulewidth}{\ecv@langouterborderwidth}
+	\ecvblueitem{Academic transcript}{
+		\renewcommand{\arraystretch}{1.5}
+		\setlength{\ecv@langtablewidth}{\ecv@rightcolwidth}
+		\addtolength{\ecv@langtablewidth}{\arrayrulewidth}
+		\arrayrulecolor{ecvtablebordercolor}
+		\begin{tabular}[t]{m{\ecv@fccol\ecv@langtablewidth}|m{\ecv@fccol\ecv@langtablewidth}|m{\ecv@fccol\ecv@langtablewidth}|m{\ecv@fccol\ecv@langtablewidth}}
+			\firsthline
+			\centering \ecvbluestyle{Date}& \centering \ecvbluestyle{Exam} &\centering \ecvbluestyle{Credits}& \centering \ecvbluestyle{Grade} \tabularnewline
+			\hline
+			\centering{#1} &\centering{#2} &\centering{#3} &\centering{#4} \tabularnewline
+			\hline
+		\end{tabular}
+	}
+\checknextarg
+}
+
+\newcommand{\checknextarg}{\@ifnextchar\bgroup{\gobblenextarg}{
+}}
+
+\newcommand{\gobblenextarg}[4]{ 
+\def\ecv@fccol{0.25}
+	%header
+	%\setlength{\arrayrulewidth}{\ecv@langouterborderwidth}
+	\ecvblueitem[-5pt]{}{
+		\renewcommand{\arraystretch}{1.5}
+		\setlength{\ecv@langtablewidth}{\ecv@rightcolwidth}
+		\addtolength{\ecv@langtablewidth}{\arrayrulewidth}
+		\arrayrulecolor{ecvtablebordercolor}
+                %\rowcolors{3}{white}{ecvtablebordercolor}
+		\begin{tabular}[t]{m{\ecv@fccol\ecv@langtablewidth}|m{\ecv@fccol\ecv@langtablewidth}|m{\ecv@fccol\ecv@langtablewidth}|m{\ecv@fccol\ecv@langtablewidth}}
+			\centering{#1} &\centering{#2} &\centering{#3} &\centering{#4} \tabularnewline
+			\hline
+		\end{tabular}
+	}
+\@ifnextchar\bgroup{\gobblenextarg}{
+}}
 
 % Initialization
 \ecvRuleWidth{\arrayrulewidth}

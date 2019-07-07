@@ -1,7 +1,6 @@
-%\title{How to split a PDF in half}
+%\title{How to crop and split a PDF in LaTeX, without using it}
 %% Original version by J.S.Milne 25.09.05
 %% (two2one.tex - http://www.jmilne.org/math/Books/scan.html)
-%%
 %%
 %% 					Updated by Nicola Rainiero
 %% 					http://rainnic.altervista.org/it/tag/latex
@@ -23,6 +22,8 @@
 \usepackage{ifthen}
 \usepackage{pdfpages}
 \usepackage{tikz}
+\usepackage{color}
+\definecolor{Light}{gray}{.80}
 
 
 % <---------------------------- EDIT THIS AREA ONLY ----------------------------------->
@@ -42,18 +43,19 @@
 %% Define the file name and the dimension of your PDF
 %% Put the size in mm
 %% The typical size of an A4 document is 210x297 mm
-\newcommand\units{mm}					% <--- set the units (default mm)
-\newcommand\fileName{two_side.pdf}		% <--- the name of the PDF to process
-\newcommand\width{420} 					% <--- the width size in mm of your PDF
-\newcommand\height{297} 				% <--- the height size in mm of your PDF
+\newcommand\units{mm}					           % <--- set the units (default mm)
+\newcommand\fileName{example.pdf}		           % <--- the name of the PDF to process
+\newcommand\fileNameToJoin{example_trimmed.pdf}    % <--- the name of the PDF trimmed to join
+\newcommand\width{210} 					           % <--- the width size in mm of your PDF
+\newcommand\height{297} 				           % <--- the height size in mm of your PDF
 
 %%
 %% 							Do you want to crop the white spaces around the PDF?
 %%
 \newcommand\crop{1} 					% <-- "0" FALSE "1" TRUE
 % If true put the dimension of the virtual rectangle that covers the pages
-\newcommand\cutterW{150} 				% <--- the width size in mm of your cutter
-\newcommand\cutterH{280} 				% <--- the height size in mm of your cutter
+\newcommand\cutterW{130} 				% <--- the width size in mm of your cutter
+\newcommand\cutterH{100} 				% <--- the height size in mm of your cutter
 
 %%
 %% 							Do you want to cut two sections per page?
@@ -63,19 +65,43 @@
 %% the system start at the bottom left of the whole page
 %% YOU CAN PUT ONLY INTEGER NUMBER
 %% first rectangle in page (generally odd) or the only one
-\newcommand\xOdd{30}					% <-- x_1
-\newcommand\yOdd{3}						% <-- y_1
+\newcommand\xOdd{40}					% <-- x_1
+\newcommand\yOdd{160}						% <-- y_1
 %% second rectangle in page (generally even)
-\newcommand\xEven{242}					% <-- x_2
-\newcommand\yEven{3}					% <-- x_2
+\newcommand\xEven{40}					% <-- x_2
+\newcommand\yEven{36}					% <-- y_2
 
 %%
 %% 							How many pages do you want to process?
 %% default pages + 1, pages +0 if there are two page increment in the 2 step
-\newcommand\numberPages{6} 				% <--- the numbers of pages
+
+\newcommand\numberPages{5} 				% <--- the numbers of pages
 \newcommand\firstPage{1} 				% <--- fix the first page to start
 
+%%
+%%                          Do you want page number in the trimmed PDF?
+\newcommand\pagenumber{1} 					% <-- "0" FALSE "1" TRUE
+%% 							Fix the distance of the page number from the bottom
+\newcommand\distance{3.5} 				% <--- in mm
+
+
 % <---------------------------- EDIT THIS AREA ONLY  ----------------------------------->
+
+\makeatletter
+\ifthenelse{\pagenumber=1}
+{\def\ps@mystyle{%
+  \let\@oddhead\@empty% header empty on odd pages
+  \let\@evenhead\@empty% header empty on even pages
+    \def\@oddfoot{\hfil{\colorbox{Light}{-\arabic{page}-}}\hfil}%
+    \def\@evenfoot{\hfil{\colorbox{Light}{-\arabic{page}-}}\hfil}%
+}}
+{\def\ps@mystyle{%
+  \let\@oddhead\@empty% header empty on odd pages
+  \let\@evenhead\@empty% header empty on even pages
+    \def\@oddfoot\@empty%
+    \def\@evenfoot\@empty%
+}}
+\makeatother 
 
 \newcommand\DxOdd{\the\numexpr\xOdd+\cutterW}
 \newcommand\DyOdd{\the\numexpr\yOdd+\cutterH}
@@ -90,7 +116,11 @@
 \end{first}
 
 \begin{second}
-   \ifthenelse{\crop=0}
+   \ifthenelse{\crop=0 \AND \pagenumber=1}
+      {\usepackage[includefoot,bottom=\distance mm,paperwidth=\halfW mm,paperheight=\height mm]{geometry}}
+      {\usepackage[includefoot,bottom=\distance mm,paperwidth=\cutterW \units,paperheight=\cutterH \units]{geometry}}
+      
+   \ifthenelse{\crop=0 \AND \pagenumber=0}
       {\usepackage[paperwidth=\halfW mm,paperheight=\height mm]{geometry}}
       {\usepackage[paperwidth=\cutterW \units,paperheight=\cutterH \units]{geometry}}
 \end{second}
@@ -152,14 +182,14 @@
 % Save the PDF output
 %
 \begin{second}
-   \setcounter{pg}{\firstPage} %fix the first page to start
+\setcounter{pg}{\firstPage} %fix the first page to start
    \whiledo{\value{pg}<\numberPages}{% default pages+1, pages+0 for two increment
       \ifthenelse{\crop=1}
-       {\includepdf[pages=\thepg,viewport=\xOdd mm \yOdd mm \DxOdd mm \DyOdd mm]{\fileName}
-        \ifthenelse{\double=1}{\includepdf[pages=\thepg,viewport=\xEven mm \yEven mm \DxEven mm \DyEven mm]{\fileName}}{}}
-       {\ifthenelse{\double=1}{\includepdf[pages=\thepg,viewport=0mm 0mm \halfW mm \height mm]{\fileName}
-        \includepdf[pages=\thepg,viewport=\xEven mm \yEven mm \DxEven mm \DyEven mm]{\fileName}}
-       {\includepdf[pages=\thepg,viewport=0mm 0mm \halfW mm \height mm]{\fileName}}}      
+       {\includepdf[pagecommand={\thispagestyle{mystyle}},pages=\thepg,viewport=\xOdd mm \yOdd mm \DxOdd mm \DyOdd mm]{\fileName}
+        \ifthenelse{\double=1}{\includepdf[pagecommand={\thispagestyle{mystyle}},pages=\thepg,viewport=\xEven mm \yEven mm \DxEven mm \DyEven mm]{\fileName}}{}}
+       {\ifthenelse{\double=1}{\includepdf[pagecommand={\thispagestyle{mystyle}},pages=\thepg,viewport=0mm 0mm \halfW mm \height mm]{\fileName}
+        \includepdf[pagecommand={\thispagestyle{mystyle}},pages=\thepg,viewport=\xEven mm \yEven mm \DxEven mm \DyEven mm]{\fileName}}
+       {\includepdf[pagecommand={\thispagestyle{mystyle}},pages=\thepg,viewport=0mm 0mm \halfW mm \height mm]{\fileName}}}      
       %page increment
       \addtocounter{pg}{1}
    }
@@ -175,7 +205,7 @@
 %
 % Save the PDF output of the II stage and load it (Project --> files)
 \begin{third}
-   \includepdf[pages=-, nup=2x1]{split-pdf-half.pdf}%<-your last PDF
+   \includepdf[pages=-,templatesize={\the\numexpr\cutterW mm}{\the\numexpr\cutterH*1.5 mm}, nup=1x2, landscape=false, fitpaper=true]{\fileNameToJoin}%<-your last PDF
 \end{third}
 \end{checkTrue}
 

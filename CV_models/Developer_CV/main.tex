@@ -1,0 +1,234 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Developer CV
+% LaTeX Template
+% Version 1.0 (28/1/19)
+%
+% This template originates from:
+% http://www.LaTeXTemplates.com
+%
+% Authors:
+% Jan Vorisek (jan@vorisek.me)
+% Based on a template by Jan Küster (info@jankuester.com)
+% Modified for LaTeX Templates by Vel (vel@LaTeXTemplates.com)
+%
+% Modified by Nicola Rainiero for:
+% http://rainnic.altervista.org/tag/latex
+%
+%
+% License:
+% The MIT License (see included LICENSE file)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+%\documentclass[9pt]{developercv} % Default font size, values from 8-12pt are recommended
+\documentclass[9pt]{developercv} % Default font size, values from 8-12pt are recommended
+
+\usepackage[english]{babel} %english, UKenglish or italian
+
+%----------------------------------------------------------------------------------------
+\includecomment{coverletter} % To enable cover letter
+\newcommand\textName{cyan}
+\newcommand\fillName{white}
+
+\newcommand\fillColor{cyan}
+\newcommand\textColor{white}
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE AND CONTACT INFORMATION
+%----------------------------------------------------------------------------------------
+\newcommand\Header{
+\begin{minipage}[t]{0.15\textwidth} % 45% of the page width for name
+	\vspace{-\baselineskip} % Required for vertically aligning minipages
+	\includegraphics[trim=0mm 0mm 0mm 0mm, height=2.55cm]{no_profile.png}
+\end{minipage}
+\begin{minipage}[t]{0.35\textwidth} % 45% of the page width for name
+	\vspace{-\baselineskip} % Required for vertically aligning minipages
+	
+	% If your name is very short, use just one of the lines below
+	% If your name is very long, reduce the font size or make the minipage wider and reduce the others proportionately
+	
+	\colorbox{\fillName}{{\HUGE\textcolor{\textName}{\textbf{\MakeUppercase{Nicola}}}}} % First name
+	
+	\colorbox{\fillName}{{\HUGE\textcolor{\textName}{\textbf{\MakeUppercase{Rainiero}}}}} % Last name
+	
+	\vspace{7pt}
+	
+	\normalsize{Engineer}
+	%\vspace{6pt}
+	
+\end{minipage}
+\begin{minipage}[t]{0.275\textwidth} % 27.5% of the page width for the first row of icons
+	\vspace{-\baselineskip} % Required for vertically aligning minipages
+	
+	% The first parameter is the FontAwesome icon name, the second is the box size and the third is the text
+	% Other icons can be found by referring to fontawesome.pdf (supplied with the template) and using the word after \fa in the command for the icon you want
+	\icon{MapMarker}{12}{45010 Villadose (RO)}\\
+	\icon{Phone}{12}{+39 389 XXX XXXX}\\
+	\icon{At}{12}{\href{mailto:rainnic@altervista.org}{rainnic@altervista.org}}\\
+    \icon{Male}{12}{Birth: YYYY/MM/DD}\\
+\end{minipage}
+\begin{minipage}[t]{0.275\textwidth} % 27.5% of the page width for the second row of icons
+	\vspace{-\baselineskip} % Required for vertically aligning minipages
+	
+	% The first parameter is the FontAwesome icon name, the second is the box size and the third is the text
+	% Other icons can be found by referring to fontawesome.pdf (supplied with the template) and using the word after \fa in the command for the icon you want
+	\icon{Globe}{12}{\href{https://rainnic.altervista.org}{rainnic.altervista.org}}\\
+	\icon{Github}{12}{\href{https://github.com/rainnic}{github.com/rainnic}}\\
+	\icon{Linkedin}{12}{\href{https://it.linkedin.com/in/nicolarainiero/en}{in/nicolarainiero}}\\
+    \icon{Twitter}{12}{\href{https://twitter.com/RainnicClouds}{RainnicClouds}}\\
+\end{minipage}
+
+\vspace{0.5cm}
+}
+%----------------------------------------------------------------------------------------
+%	COVER LETTER
+%----------------------------------------------------------------------------------------
+\begin{coverletter}
+\newcommand\titlefooter{Cover Letter} % Lettera di presentazione, Cover Letter
+\Header
+\vspace{1.0cm}
+\begin{flushright}
+25 Street Name, Postcode,\\
+City (District) -- Country\\
+\end{flushright}
+\vspace{1.0cm}
+
+\underline{\textbf{Job Application for Engineer}}
+
+\vspace{0.5cm}
+
+Dear Mr./Ms./Dr. LastName,
+
+\cvsect{About me}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ullamcorper neque sit amet lectus facilisis sed luctus nisl iaculis. Vivamus at neque arcu, sed tempor quam. Curabitur pharetra tincidunt tincidunt. Morbi volutpat feugiat mauris, quis tempor neque vehicula volutpat. Duis tristique justo vel massa fermentum accumsan. Mauris ante elit, feugiat vestibulum tempor eget, eleifend ac ipsum. Donec scelerisque lobortis ipsum eu vestibulum. Pellentesque vel massa at felis accumsan rhoncus.
+
+\cvsect{Why your Company?}
+Suspendisse commodo, massa eu congue tincidunt, elit mauris pellentesque orci, cursus tempor odio nisl euismod augue. Aliquam adipiscing nibh ut odio sodales et pulvinar tortor laoreet. Mauris a accumsan ligula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse vulputate sem vehicula ipsum varius nec tempus dui dapibus. Phasellus et est urna, ut auctor erat. Sed tincidunt odio id odio aliquam mattis. Donec sapien nulla, feugiat eget adipiscing sit amet, lacinia ut dolor. Phasellus tincidunt, leo a fringilla consectetur, felis diam aliquam urna, vitae aliquet lectus orci nec velit. Vivamus dapibus varius blandit.
+
+\cvsect{Why me?}
+Duis sit amet magna ante, at sodales diam. Aenean consectetur porta risus et sagittis. Ut interdum, enim varius pellentesque tincidunt, magna libero sodales tortor, ut fermentum nunc metus a ante. Vivamus odio leo, tincidunt eu luctus ut, sollicitudin sit amet metus. Nunc sed orci lectus. Ut sodales magna sed velit volutpat sit amet pulvinar diam venenatis.
+
+\vspace{1.0cm}
+
+Sincerely,
+
+\textbf{Nicola Rainiero}
+
+\vspace{2.5cm}
+
+\emph{In compliance with the Italian Law 196/2003 and 679/2016, I hereby authorize you to use and process my personal details contained in this document. Attached: Curriculum Vitae}
+\newpage
+\end{coverletter}
+
+%----------------------------------------------------------------------------------------
+%	INTRODUCTION, SKILLS AND TECHNOLOGIES
+%----------------------------------------------------------------------------------------
+
+\ifthenelse{\isundefined{\titlefooter}}{
+ \newcommand\titlefooter{Curriculum Vitae}
+}{
+  \renewcommand\titlefooter{Curriculum Vitae}
+}
+\Header
+
+\cvsect{Who Am I?}
+
+\begin{minipage}[t]{0.4\textwidth} % 40% of the page width for the introduction text
+	\vspace{-\baselineskip} % Required for vertically aligning minipages
+	
+	\lorem \lorem \lorem \lorem \lorem\\ % Dummy text
+\end{minipage}
+\hfill % Whitespace between
+\begin{minipage}[t]{0.5\textwidth} % 50% of the page for the skills bar chart
+	\vspace{-\baselineskip} % Required for vertically aligning minipages
+	\begin{barchart}{5.5}
+		\baritem{JavaScript}{60}
+		\baritem{PHP}{100}
+		\baritem{SASS/LESS}{70}
+		\baritem{Bootstrap}{70}
+		\baritem{Git}{40}
+		\baritem{LaTeX}{60}
+	\end{barchart}
+\end{minipage}
+
+\begin{center}
+	\bubbles{5/Eclipse, 6/git, 4/Office, 3/Inkscape, 3/Blender}
+\end{center}
+
+%----------------------------------------------------------------------------------------
+%	EXPERIENCE
+%----------------------------------------------------------------------------------------
+\cvsect{Experience}
+
+\begin{entrylist}
+	\entry
+		{2017 -- 3/2018}
+		{Front-end developer}
+		{Big Corporation Name Inc.}
+		{\lorem \lorem \lorem\\ \texttt{node.js}\slashsep\texttt{Vue.js}\slashsep\texttt{Electron}}
+	\entry
+		{2015 -- 2018\\\footnotesize{part time}}
+		{Full stack developer}
+		{Famous Eshop Inc.}
+		{\lorem\lorem\\ \texttt{PHP}\slashsep\texttt{JS}\slashsep\texttt{MariaDB}\slashsep\texttt{Linux}}
+	\entry
+		{2013 -- 2014\\\footnotesize{part time}}
+		{Junior PHP Developer}
+		{example.com}
+		{\lorem\lorem\\ \texttt{PHP}\slashsep\texttt{Laravel}}
+\end{entrylist}
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION
+%----------------------------------------------------------------------------------------
+
+\cvsect{Education}
+
+\begin{entrylist}
+	\entry
+		{2013 -- 2017}
+		{Master's Degree}
+		{Another University Name}
+		{\lorem\lorem\lorem}
+	\entry
+		{2014}
+		{Postgraduate Diploma}
+		{A University Name}
+		{\lorem\lorem}
+\end{entrylist}
+
+%----------------------------------------------------------------------------------------
+%	ADDITIONAL INFORMATION
+%----------------------------------------------------------------------------------------
+
+\begin{minipage}[t]{0.40\textwidth}
+	\vspace{-\baselineskip} % Required for vertically aligning minipages
+
+	\cvsect{Languages}
+	
+	\textbf{Italian} -- native\\
+	\textbf{English} -- proficient B1$^1$\\
+	\textbf{French} -- rudimentary
+	
+	$^1$ Certified by \emph{Eastbourne School of English}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.60\textwidth}
+	\vspace{-\baselineskip} % Required for vertically aligning minipages
+	
+	\cvsect{Privacy}
+	
+%	I help... \lorem
+\emph{In compliance with the Italian Law 196/2003 and 679/2016, I hereby authorize you to use and process my personal details contained in this document.}
+
+\end{minipage}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
